@@ -1,3 +1,5 @@
 Hmmmm :thinking:  
-### List of Files  
-* (Prepwork) intentsdemo -- only includes .java files
+### List of Prepwork  
+* intentsdemo       -- only includes .java files  
+* module3prep       -- on dynamically/programatically created layouts  
+* parampassingapp   -- various ways of data passing (includes Serializable and Parcelable)
