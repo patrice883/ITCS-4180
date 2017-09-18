@@ -14,5 +14,5 @@ Our projects for the ITSC 4180 Mobile Application Development course. Yay!
 
 ## Week 3
 * Activities  
-* Explicit and Implicit  
+* Explicit and Implicit Intents  
 * Data Passing
