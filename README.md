@@ -13,3 +13,6 @@ Our projects for the ITSC 4180 Mobile Application Development course. Yay!
 * OnClick Event Handlers  
 
 ## Week 3
+* Activities  
+* Explicit and Implicit  
+* Data Passing
