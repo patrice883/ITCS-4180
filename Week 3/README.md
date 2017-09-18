@@ -3,4 +3,5 @@ Hmmmm :thinking:
 _Only includes .java files_
 * intentsdemo       -- on explicit and implicit intents  
 * module3prep       -- on dynamically/programatically created layouts  
-* parampassingapp   -- various ways of data passing (includes Serializable and Parcelable)
+* parampassingapp   -- various ways of data passing (includes Serializable and Parcelable)  
+* otherintents      -- opening web url and requesting to make a phone call
