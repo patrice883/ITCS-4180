@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Area Calculator</string>
+
+    <string name="l1">Length 1: </string>
+    <string name="l2">Length 2: </string>
+
+    <string name="instructions">Select a shape</string>
+
+    <string name="triangle">Triangle</string>
+    <string name="square">Square</string>
+    <string name="circle">Circle</string>
+
+    <string name="calculate">Calculate</string>
+    <string name="clear">Clear</string>
+</resources>
