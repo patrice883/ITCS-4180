@@ -1,5 +1,7 @@
 package itcs4180.inclass04;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,7 +13,8 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     private int passCount = 1;
     private int passLength = 8;
 
-
+    // Array of passwords gotten from the password generator ----------------------------------------
+    private String[] results = {"A", "B", "C", "D"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +25,22 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         ((SeekBar)findViewById(R.id.seekPassCount)).setOnSeekBarChangeListener(this);
         ((SeekBar)findViewById(R.id.seekPassLength)).setOnSeekBarChangeListener(this);
 
+        // AlertDialog for choosing the final Password ---------------------------------------------
+        /*
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Pick a color!")
+         */
+        AlertDialog.Builder passwordPicker = new AlertDialog.Builder(this);
+        passwordPicker.setTitle("Passwords")
+                       .setSingleChoiceItems(results,-1, new DialogInterface.OnClickListener(){
+                           @Override
+                           public void onClick(DialogInterface dialogInterface, int i) {
+                               Log.d("demo", results[i] + " was pressed!");
+
+                               ((TextView)findViewById(R.id.txtShowPass)).setText(results[i]);
+                           }
+                       });
     }
 
     private void teeHeeSeek(SeekBar seekBar){
