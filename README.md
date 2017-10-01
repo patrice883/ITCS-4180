@@ -1,5 +1,7 @@
 # ITCS-4180
-Our projects for the ITSC 4180 Mobile Application Development course. Yay!
+Our projects for the ITSC 4180 Mobile Application Development course. Yay!  
+Professor Shehab's GitLab References:  
+https://gitlab.com/mshehab/uncc-mobile-apps-fall-2017
 
 ## Week 1  
 ### Introduction to Java
@@ -29,3 +31,12 @@ Our projects for the ITSC 4180 Mobile Application Development course. Yay!
 * Concurrency Handlers  
 * Thread Communication using Handler  
 * Concurrency Asynctask  
+
+## Week 5  
+### HTTP Connections  
+* Checking Network Connection  
+* Postman  
+* HttpURLConnection  
+* Downloading Images  
+* Managing Params HttpURLConnection GET and POST  
+* Data Passing Using Interfaces
