@@ -53,14 +53,6 @@ public class MainActivity extends AppCompatActivity {
                 Contact person = (Contact) data.getExtras().get(CONTACT_KEY);
                 people.add(person);
 
-                Log.d("Create", person.toString() + " THIS IS IT");
-                if(person.getProfile() == null){
-                    Log.d("Create", "No profile pic set.");
-                }
-                else{
-                    Log.d("Create", "Profile pic was set");
-                }
-
                 Log.d("Create", "A New Contact was received and added to list successfully");
 
             }

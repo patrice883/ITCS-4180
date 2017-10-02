@@ -2,7 +2,10 @@ package com.example.devansh.homework02;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,10 +14,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class CreateNewContact extends AppCompatActivity  {
 
     private static final int REQUEST_IMG_CAPTURE = 337;
-    private Bitmap imageBitmap = null;
+    private String photoPath;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +102,7 @@ public class CreateNewContact extends AppCompatActivity  {
                     if(((EditText)findViewById(R.id.youtubeChannel)).getText().toString() != null)
                         youtubeChannel =  ((EditText)findViewById(R.id.youtubeChannel)).getText().toString();
 
-                    Contact newContact = new Contact(imageBitmap, fname, lname, company, phone, email, url, address, birthday, nickname, fbURL, twitterURL, skypeURL, youtubeChannel);
+                    Contact newContact = new Contact(fname, lname, company, phone, email, url, address, birthday, nickname, fbURL, twitterURL, skypeURL, youtubeChannel);
 
                     Intent intent = new Intent();
                     intent.putExtra("NEW_CONTACT", newContact);
@@ -109,22 +118,66 @@ public class CreateNewContact extends AppCompatActivity  {
 
     ///////////////////////////////////////////////////////////////////////////
     // Open Camera and Get Photo
+    // Source: https://developer.android.com/training/camera/photobasics.html
     ///////////////////////////////////////////////////////////////////////////
 
+    // Attempt #1 ;-; how to save camera image
+    {
+    /*
     public void onCameraClick(View view){
         Log.d("Create", "Camera image was clicked!!");
 
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that the camera activity is ready to handle the intent
         if(cameraIntent.resolveActivity(getPackageManager()) != null){
-            startActivityForResult(cameraIntent, REQUEST_IMG_CAPTURE);
+            // Create file for the photo
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            }
+            catch (IOException ex){
+                Log.d("Create", "Error occured while creating the File.");
+            }
+            // ... continue only if the File was successfully created
+            if(photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this,
+                                                          "com.example.android.fileprovider",
+                                                          photoFile);
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(cameraIntent, REQUEST_IMG_CAPTURE);
+            }
         }
+    }
+
+    private File createImageFile() throws IOException {
+        // Create a unique image file name based on time
+        // Get time
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                          timeStamp,        // prefix
+                          ".jpg",           // suffix
+                          storageDir        // directory
+                          );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        photoPath = image.getAbsolutePath();
+        // returns the File
+        return image;
+    }
+    */
+    }
+
+    public void onCameraClick(View view){
+
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode == RESULT_OK && requestCode == REQUEST_IMG_CAPTURE){
             Bundle extras = data.getExtras();
-            imageBitmap = (Bitmap) extras.get("data");
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
 
             // Sets image
             ImageView img = (ImageView)findViewById(R.id.profilepic);

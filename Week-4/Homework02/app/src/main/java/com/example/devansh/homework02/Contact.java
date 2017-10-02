@@ -11,7 +11,6 @@ import java.io.Serializable;
 public class Contact implements Serializable {
 
     private String fname, lname, company, phone, email, url, address, birthday, nickname, fbURL, twitterURL, skypeURL, youtubeChannel;
-    private Bitmap profile = null;
 
     @Override
     public String toString() {
@@ -38,24 +37,6 @@ public class Contact implements Serializable {
     
     // Contructor without profile pic
     public Contact(String fname, String lname, String company, String phone, String email, String url, String address, String birthday, String nickname, String fbURL, String twitterURL, String skypeURL, String youtubeChannel) {
-        this.fname = fname;
-        this.lname = lname;
-        this.company = company;
-        this.phone = phone;
-        this.email = email;
-        this.url = url;
-        this.address = address;
-        this.birthday = birthday;
-        this.nickname = nickname;
-        this.fbURL = fbURL;
-        this.twitterURL = twitterURL;
-        this.skypeURL = skypeURL;
-        this.youtubeChannel = youtubeChannel;
-    }
-
-    // Constructor with profile pic
-    public Contact(Bitmap img, String fname, String lname, String company, String phone, String email, String url, String address, String birthday, String nickname, String fbURL, String twitterURL, String skypeURL, String youtubeChannel) {
-        this.profile = img;
         this.fname = fname;
         this.lname = lname;
         this.company = company;
@@ -179,11 +160,4 @@ public class Contact implements Serializable {
         this.youtubeChannel = youtubeChannel;
     }
 
-    public Bitmap getProfile() {
-        return profile;
-    }
-
-    public void setProfile(Bitmap profile) {
-        this.profile = profile;
-    }
 }
