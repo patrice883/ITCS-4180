@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     static final String CONTACT_KEY = "NEW_CONTACT"; //This key is used to send and recieve a single contact
     static final String UPDATE = "UPDATE";           //This key is used to send and recieve updates on all the contacts
 
-    private ArrayList<Contact> people = new ArrayList<>(); //The list that holds the contacts list
+    private static ArrayList<Contact> people = new ArrayList<>(); //The list that holds the contacts list
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +52,13 @@ public class MainActivity extends AppCompatActivity {
 
                 Contact person = (Contact) data.getExtras().get(CONTACT_KEY);
                 people.add(person);
+
+                if(person.getProfile() == null){
+                    Log.d("Create", "Profile picture is null!");
+                }
+                else{
+                    Log.d("Create", "We have a profile picture!");
+                }
 
                 Log.d("Create", "A New Contact was received and added to list successfully");
 
