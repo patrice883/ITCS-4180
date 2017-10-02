@@ -12,13 +12,16 @@ import java.io.Serializable;
 public class Contact implements Serializable {
 
     private String fname, lname, company, phone, email, url, address, birthday, nickname, fbURL, twitterURL, skypeURL, youtubeChannel;
-<<<<<<< Updated upstream
-    private Bitmap profile = null;
 
+    public byte[] getPhoto() {
+        return photo;
+    }
 
-=======
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
+    }
+
     private byte[] photo;
->>>>>>> Stashed changes
     @Override
     public String toString() {
         return "Contact{" +
@@ -41,35 +44,6 @@ public class Contact implements Serializable {
     ///////////////////////////////////////////////////////////////////////////
     // Contructors
     ///////////////////////////////////////////////////////////////////////////
-<<<<<<< Updated upstream
-    
-    // Contructor with profile pic
-    public Contact(Bitmap img, String fname, String lname, String company, String phone, String email, String url, String address, String birthday, String nickname, String fbURL, String twitterURL, String skypeURL, String youtubeChannel) {
-        this.profile = img;
-        this.fname = fname;
-        this.lname = lname;
-        this.company = company;
-        this.phone = phone;
-        this.email = email;
-        this.url = url;
-        this.address = address;
-        this.birthday = birthday;
-        this.nickname = nickname;
-        this.fbURL = fbURL;
-        this.twitterURL = twitterURL;
-        this.skypeURL = skypeURL;
-        this.youtubeChannel = youtubeChannel;
-=======
-
-
-    public byte[] getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(byte[] photo) {
-        this.photo = photo;
->>>>>>> Stashed changes
-    }
 
     // Contructor without profile pic
     public Contact(byte[] arr, String fname, String lname, String company, String phone, String email, String url, String address, String birthday, String nickname, String fbURL, String twitterURL, String skypeURL, String youtubeChannel) {
@@ -198,11 +172,4 @@ public class Contact implements Serializable {
         this.youtubeChannel = youtubeChannel;
     }
 
-    public Bitmap getProfile() {
-        return profile;
-    }
-
-    public void setProfile(Bitmap profile) {
-        this.profile = profile;
-    }
 }

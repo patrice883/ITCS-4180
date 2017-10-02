@@ -24,13 +24,9 @@ public class MainActivity extends AppCompatActivity {
     static final String CONTACT_KEY = "NEW_CONTACT"; //This key is used to send and recieve a single contact
     static final String UPDATE = "UPDATE";           //This key is used to send and recieve updates on all the contacts
 
-<<<<<<< Updated upstream
     private static ArrayList<Contact> people = new ArrayList<>(); //The list that holds the contacts list
 
-=======
-    private ArrayList<Contact> people = new ArrayList<>(); //The list that holds the contacts list
-    private ArrayList<Bitmap> pics = new ArrayList<>();
->>>>>>> Stashed changes
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,19 +66,8 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("test", "A New Contact is received");
                 Contact person = (Contact) data.getExtras().get(CONTACT_KEY);
                 people.add(person);
-<<<<<<< Updated upstream
 
-                if(person.getProfile() == null){
-                    Log.d("Create", "Profile picture is null!");
-                }
-                else{
-                    Log.d("Create", "We have a profile picture!");
-                }
-
-                Log.d("Create", "A New Contact was received and added to list successfully");
-=======
                 Log.d("test", "A New Contact was received and added to list successfully");
->>>>>>> Stashed changes
 
             }
         }

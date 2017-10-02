@@ -27,13 +27,8 @@ import java.util.Date;
 public class CreateNewContact extends AppCompatActivity {
 
     private static final int REQUEST_IMG_CAPTURE = 337;
-<<<<<<< Updated upstream
-    private String photoPath;
-    private static Bitmap imageBitmap = null;
 
-=======
     byte[] byteArray;
->>>>>>> Stashed changes
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,12 +114,10 @@ public class CreateNewContact extends AppCompatActivity {
                     if (((EditText) findViewById(R.id.youtubeChannel)).getText().toString() != null)
                         youtubeChannel = ((EditText) findViewById(R.id.youtubeChannel)).getText().toString();
 
-<<<<<<< Updated upstream
-                    Contact newContact = new Contact(imageBitmap, fname, lname, company, phone, email, url, address, birthday, nickname, fbURL, twitterURL, skypeURL, youtubeChannel);
-=======
+
                     Contact newContact = new Contact(byteArray, fname, lname, company, phone, email, url, address, birthday, nickname, fbURL, twitterURL, skypeURL, youtubeChannel);
                     Log.d("test","New Contact is " + newContact);
->>>>>>> Stashed changes
+
 
                     Intent intent = new Intent();
                     intent.putExtra("NEW_CONTACT", newContact);
@@ -148,31 +141,16 @@ public class CreateNewContact extends AppCompatActivity {
         Log.d("test", "Camera image was clicked!!");
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-<<<<<<< Updated upstream
-    // Attempt #2 :')... Which was actually attempt #1 but deleted
-    public void onCameraClick(View view){
-        Log.d("Create", "Camera image was clicked!!");
 
-        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(cameraIntent, REQUEST_IMG_CAPTURE);
-=======
         if (cameraIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(cameraIntent, REQUEST_IMG_CAPTURE);
         }
         Log.d("test", "Finished With Camera Image");
->>>>>>> Stashed changes
 
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-<<<<<<< Updated upstream
-        if(resultCode == RESULT_OK && requestCode == REQUEST_IMG_CAPTURE){
-            Bundle extras = data.getExtras();
-            imageBitmap = (Bitmap) extras.get("data");
-=======
->>>>>>> Stashed changes
-
 
         if (resultCode == RESULT_OK && requestCode == REQUEST_IMG_CAPTURE) {
 
