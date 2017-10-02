@@ -23,4 +23,12 @@
     <string name="save">Save</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
+    <string name="show_company">Company :</string>
+    <string name="show_email">Email :</string>
+    <string name="show_url">Personal URL :</string>
+    <string name="show_youtube">Youtube Channel :</string>
+    <string name="show_fburl">Facebook URL :</string>
+    <string name="show_twitter">Twitter URL :</string>
+    <string name="show_skype">Skype :</string>
+    <string name="show_address">Address :</string>
 </resources>

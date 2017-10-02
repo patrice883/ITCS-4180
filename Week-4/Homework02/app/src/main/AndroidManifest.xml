@@ -39,7 +39,14 @@
         <activity android:name=".DisplayContacts" />
         <activity android:name=".EditContact" />
         <activity android:name=".DeleteContact" />
-        <activity android:name=".ViewContact"></activity>
+        <activity android:name=".ViewContact">
+            <intent-filter>
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="android.intent.action.VIEW" />
+
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

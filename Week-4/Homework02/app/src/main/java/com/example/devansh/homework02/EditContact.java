@@ -1,16 +1,29 @@
 package com.example.devansh.homework02;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Parcelable;
+import android.provider.ContactsContract;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
+import java.io.Serializable;
+
 public class EditContact extends AppCompatActivity {
 
+    private static final int REQUEST_IMG_CAPTURE = 337;
+    byte[] byteArray;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,9 +33,15 @@ public class EditContact extends AppCompatActivity {
         if(getIntent() != null && getIntent().getExtras() != null){
 
 
+
+
             Contact thisperson = (Contact) getIntent().getExtras().get("CONTACT");
             setTitle(thisperson.getFname() + " " + thisperson.getLname());
-            ((ImageView) findViewById(R.id.editImageView)).setImageDrawable(getResources().getDrawable(R.drawable.default_image));
+
+            //get the original photo bitmap of the contact and display it
+            byteArray = thisperson.getPhoto();
+            Log.d("test", "We are in View Contact and profile image is " + BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length));
+            ((ImageView) findViewById(R.id.editImageView)).setImageBitmap(BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length));
             ((EditText) findViewById(R.id.editFirstName)).setText(thisperson.getFname());
             ((EditText) findViewById(R.id.editLastName)).setText(thisperson.getLname());
             ((EditText) findViewById(R.id.editAddress)).setText(thisperson.getAddress());
@@ -95,8 +114,7 @@ public class EditContact extends AppCompatActivity {
                     if (((EditText) findViewById(R.id.editYoutube)).getText().toString() != null)
                         youtubeChannel = ((EditText) findViewById(R.id.editYoutube)).getText().toString();
 
-                    Contact editContact = new Contact(fname, lname, company, phone, email, url, address, birthday, nickname, fbURL, twitterURL, skypeURL, youtubeChannel);
-
+                    Contact editContact = new Contact(byteArray,fname, lname, company, phone, email, url, address, birthday, nickname, fbURL, twitterURL, skypeURL, youtubeChannel);
                     Intent intent = new Intent();
                     intent.putExtra("EDITTED_CONTACT", editContact);
                     intent.putExtra("LOCATION", (int) getIntent().getExtras().get("LOCATION"));
@@ -107,6 +125,35 @@ public class EditContact extends AppCompatActivity {
             }
         });
 
-
     }
+
+    public void onCameraClick(View view) {
+
+        Log.d("test", "Camera image was clicked!!");
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        if (cameraIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(cameraIntent, REQUEST_IMG_CAPTURE);
+        }
+
+        Log.d("test", "Finished With Camera Image");
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK && requestCode == REQUEST_IMG_CAPTURE) {
+            Log.d("test", "Recieved a Camera Image");
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            ((ImageView) findViewById(R.id.editImageView)).setImageBitmap(imageBitmap);
+
+            //This to update the byteArray so that we can update the photo ;u;
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byteArray = stream.toByteArray();
+            Log.d("test", "Displayed the Camera Image");
+
+        }
+
+    } // end onActivityResult()
 }
