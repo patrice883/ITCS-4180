@@ -48,9 +48,19 @@ public class MainActivity extends AppCompatActivity {
         // Code for New Contact Received -----------------------------------------------------------
         if(requestCode == CONTACT_CODE){
             if(resultCode == RESULT_OK){
-                Log.d("Create", "A New Contact is recieved");
-                Log.d("Create", data.getExtras().get(CONTACT_KEY).toString() + " THIS IS IT");
-                people.add((Contact) data.getExtras().get(CONTACT_KEY));
+                Log.d("Create", "A New Contact is received");
+
+                Contact person = (Contact) data.getExtras().get(CONTACT_KEY);
+                people.add(person);
+
+                Log.d("Create", person.toString() + " THIS IS IT");
+                if(person.getProfile() == null){
+                    Log.d("Create", "No profile pic set.");
+                }
+                else{
+                    Log.d("Create", "Profile pic was set");
+                }
+
                 Log.d("Create", "A New Contact was received and added to list successfully");
 
             }

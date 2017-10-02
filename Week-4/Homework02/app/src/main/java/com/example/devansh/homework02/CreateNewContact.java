@@ -14,7 +14,8 @@ import android.widget.Toast;
 public class CreateNewContact extends AppCompatActivity  {
 
     private static final int REQUEST_IMG_CAPTURE = 337;
-    
+    private Bitmap imageBitmap = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,7 +93,7 @@ public class CreateNewContact extends AppCompatActivity  {
                     if(((EditText)findViewById(R.id.youtubeChannel)).getText().toString() != null)
                         youtubeChannel =  ((EditText)findViewById(R.id.youtubeChannel)).getText().toString();
 
-                    Contact newContact = new Contact( fname, lname, company, phone, email, url, address, birthday, nickname, fbURL, twitterURL, skypeURL, youtubeChannel);
+                    Contact newContact = new Contact(imageBitmap, fname, lname, company, phone, email, url, address, birthday, nickname, fbURL, twitterURL, skypeURL, youtubeChannel);
 
                     Intent intent = new Intent();
                     intent.putExtra("NEW_CONTACT", newContact);
@@ -123,11 +124,12 @@ public class CreateNewContact extends AppCompatActivity  {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode == RESULT_OK && requestCode == REQUEST_IMG_CAPTURE){
             Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            imageBitmap = (Bitmap) extras.get("data");
 
             // Sets image
             ImageView img = (ImageView)findViewById(R.id.profilepic);
             img.setImageBitmap(imageBitmap);
+
 
         }
 

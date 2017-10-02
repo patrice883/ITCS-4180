@@ -141,6 +141,7 @@ public class DisplayContacts extends AppCompatActivity implements ScrollView.OnC
                 currentProfilePic.setId(View.generateViewId());
                 //layout.add(id);
 
+
                 currentProfilePic.setImageDrawable(getResources().getDrawable(R.drawable.default_image));
                 profilePicParams = new ConstraintLayout.LayoutParams(200, 180);
                 profilePicParams.leftMargin = 16;
