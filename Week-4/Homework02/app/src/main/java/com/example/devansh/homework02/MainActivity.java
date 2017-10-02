@@ -38,30 +38,39 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    // Receiving Intent Data
+    ///////////////////////////////////////////////////////////////////////////
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        //
+        // Code for New Contact Received -----------------------------------------------------------
         if(requestCode == CONTACT_CODE){
             if(resultCode == RESULT_OK){
                 Log.d("Create", "A New Contact is recieved");
                 Log.d("Create", data.getExtras().get(CONTACT_KEY).toString() + " THIS IS IT");
                 people.add((Contact) data.getExtras().get(CONTACT_KEY));
-                Log.d("Create", "A New Contact was recieved and added to list successfully");
+                Log.d("Create", "A New Contact was received and added to list successfully");
 
             }
         }
+        // Code for Updating Contact ---------------------------------------------------------------
         if(requestCode == EDIT_CODE || requestCode == DELETE_CODE){
             if(resultCode == RESULT_OK){
                 Log.d("Edit", "A New Contact List is recieved and will be updated now");
                 Log.d("Edit", data.getExtras().get(UPDATE).toString() + " THIS IS IT");
                 people = (ArrayList<Contact>) data.getExtras().get(UPDATE);
-                Log.d("Edit", "A New Contact List was recieved and updated successfully");
+                Log.d("Edit", "A New Contact List was recevied and updated successfully");
             }
         }
 
 
     }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // On Click Methods
+    ///////////////////////////////////////////////////////////////////////////
 
     //This method runs when user clicks on Create new contact
     public void onCreateClick(View view){

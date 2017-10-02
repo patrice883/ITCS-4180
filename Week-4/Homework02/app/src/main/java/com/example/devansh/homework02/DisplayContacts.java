@@ -40,10 +40,7 @@ public class DisplayContacts extends AppCompatActivity implements ScrollView.OnC
             makeDisplay();
         }
 
-
-
-
-    }
+    } // end onCreate()
 
     //This method makes that Dynamic Display for contacts list
     private void makeDisplay() {
@@ -131,7 +128,6 @@ public class DisplayContacts extends AppCompatActivity implements ScrollView.OnC
             //layout.add(id);
             Log.d("Test", "The size of contacts is :" + people.size());
             for (int i = 1; i < people.size(); i++) {
-
 
                 id = currentLayout.getId();
                 layout.add(id);
