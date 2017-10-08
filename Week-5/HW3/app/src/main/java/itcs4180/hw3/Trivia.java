@@ -10,21 +10,24 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Trivia extends AppCompatActivity {
 
     ArrayList<Question> questionData;
 
     // Layout Stuffies
-    LinearLayout layout;
-    TextView txtQuestion;
-    ImageView imgPhoto;
-    TextView txtNumber;
-    TextView txtTimer;
+    private LinearLayout layout;
+    private TextView txtQuestion;
+    private ImageView imgPhoto;
+    private TextView txtNumber;
+    private TextView txtTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_trivia);
+
 
         if(getIntent() != null && getIntent().getExtras() != null){
             questionData = (ArrayList<Question>) getIntent().getExtras().get(MainActivity.QUESTIONS);
@@ -41,12 +44,15 @@ public class Trivia extends AppCompatActivity {
             updateDisplay(0);
         }
 
-    }
+    } // end onCreate()
 
     public void updateDisplay(int index) {
         Log.d("test", "We called updateDisplay()");
         Question question = questionData.get(index);
         Log.d("test", "We got the specific question object");
+
+        // Set Question Number
+        txtNumber.setText("Q" + (index + 1));
 
         // Set Question Text
         txtQuestion.setText((question.getQuestion()));
@@ -54,9 +60,10 @@ public class Trivia extends AppCompatActivity {
 
         // Get Options
         String[] options = question.getAnswerChoices();
+        Log.d("test", "Options are: " + Arrays.toString(options));
 
         int i = 0;
-/*
+
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams
                 (layout.getWidth(), layout.getHeight());
         params.setMargins(25,10,25,10);
@@ -69,7 +76,7 @@ public class Trivia extends AppCompatActivity {
         // set on click listener
         layout.addView(text);
 
-*/
+        
     }
 
 } // class
