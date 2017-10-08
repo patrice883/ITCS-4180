@@ -68,14 +68,19 @@ public class Trivia extends AppCompatActivity {
         txtOptions = new TextView[options.length];
         Log.d("test", "Options are: " + Arrays.toString(options));
 
-        for(int i = 0; i < txtOptions.length; i++) {
+        float x = layout.getX();
+        float y = layout.getY();
+        for(int i = 0; i < txtOptions.length; i++, y += 200) {
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams
                     (ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.setMargins(25, 10, 25, 10);
+            params.setMargins (25, 10, 25, 10);
 
             txtOptions[i] = new TextView(this); // Option
             txtOptions[i].setId(View.generateViewId());
             txtOptions[i].setLayoutParams(params);
+            txtOptions[i].setX(x);
+            txtOptions[i].setY(y);
+
             txtOptions[i].setText(options[i]);
             txtOptions[i].setTextSize(16);
             // set on click listener
