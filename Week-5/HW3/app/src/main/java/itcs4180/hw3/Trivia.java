@@ -1,9 +1,11 @@
 package itcs4180.hw3;
 
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -22,6 +24,7 @@ public class Trivia extends AppCompatActivity {
     private ImageView imgPhoto;
     private TextView txtNumber;
     private TextView txtTimer;
+    private TextView[] txtOptions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,8 @@ public class Trivia extends AppCompatActivity {
 
             // Retrieve all layout stuffies
             layout = (LinearLayout) findViewById(R.id.layoutOptions);
+            //layout.setLayoutParams(new RelativeLayout.LayoutParams
+            //        (ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             txtQuestion = (TextView)findViewById(R.id.txtQuestion);
             imgPhoto = (ImageView)findViewById(R.id.imgPic);
             txtNumber = (TextView)findViewById(R.id.txtQNum);
@@ -60,23 +65,24 @@ public class Trivia extends AppCompatActivity {
 
         // Get Options
         String[] options = question.getAnswerChoices();
+        txtOptions = new TextView[options.length];
         Log.d("test", "Options are: " + Arrays.toString(options));
 
-        int i = 0;
+        for(int i = 0; i < txtOptions.length; i++) {
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams
+                    (ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.setMargins(25, 10, 25, 10);
 
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams
-                (layout.getWidth(), layout.getHeight());
-        params.setMargins(25,10,25,10);
+            txtOptions[i] = new TextView(this); // Option
+            txtOptions[i].setId(View.generateViewId());
+            txtOptions[i].setLayoutParams(params);
+            txtOptions[i].setText(options[i]);
+            txtOptions[i].setTextSize(16);
+            // set on click listener
+            layout.addView(txtOptions[i]);
+        }
 
-        TextView text = new TextView(this); // Option
-        text.setId(View.generateViewId());
-        text.setLayoutParams(params);
-        text.setText(options[i]);
-        text.setTextSize(16);
-        // set on click listener
-        layout.addView(text);
 
-        
     }
 
 } // class
