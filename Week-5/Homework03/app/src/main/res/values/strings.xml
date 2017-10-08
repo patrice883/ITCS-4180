@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Homework03</string>
+    <string name="welcome">Welcom to\nTrivia App</string>
+    <string name="trivia">Trivia Ready</string>
+    <string name="start">Start Trivia</string>
+    <string name="exit">Exit</string>
+
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="stats">Trivia Stats</string>
+    <string name="correct">Correct Answers</string>
+    <string name="nothing">hehe</string>
+    <string name="tryAgain">Try Again</string>
+    <string name="quit">Quit</string>
+</resources>
