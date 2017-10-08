@@ -1,10 +1,10 @@
 package itcs4180.hw3;
 
-import android.support.constraint.ConstraintLayout;
-import android.support.constraint.ConstraintSet;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -15,63 +15,61 @@ public class Trivia extends AppCompatActivity {
 
     ArrayList<Question> questionData;
 
+    // Layout Stuffies
+    LinearLayout layout;
+    TextView txtQuestion;
+    ImageView imgPhoto;
+    TextView txtNumber;
+    TextView txtTimer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trivia);
 
         if(getIntent() != null && getIntent().getExtras() != null){
             questionData = (ArrayList<Question>) getIntent().getExtras().get(MainActivity.QUESTIONS);
+            Log.d("test", "We got question data!");
+
+            // Retrieve all layout stuffies
+            layout = (LinearLayout) findViewById(R.id.layoutOptions);
+            txtQuestion = (TextView)findViewById(R.id.txtQuestion);
+            imgPhoto = (ImageView)findViewById(R.id.imgPic);
+            txtNumber = (TextView)findViewById(R.id.txtQNum);
+            txtTimer = (TextView)findViewById(R.id.txtTime);
+
+            // Call to update display
             updateDisplay(0);
         }
 
     }
 
-    private void updateDisplay(int index) {
+    public void updateDisplay(int index) {
+        Log.d("test", "We called updateDisplay()");
         Question question = questionData.get(index);
+        Log.d("test", "We got the specific question object");
 
         // Set Question Text
-        ((TextView)findViewById(R.id.txtQuestion)).setText(question.getQuestion());
+        txtQuestion.setText((question.getQuestion()));
+        Log.d("test", "We set the question text");
 
-        ConstraintLayout layout = (ConstraintLayout) findViewById(R.id.constraintTrivia);
+        // Get Options
+        String[] options = question.getAnswerChoices();
 
-
-        // create the layout params that will be used to define how your
-        // button will be displayed
-        //LinearLayout.LayoutParams params = new LinearLayout.LayoutParams
-        //        (LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-        // Set up Linear Layout to start adding the answer choices
-        String[] answerChoice = question.getAnswerChoices();
-        TextView[] options = new TextView[answerChoice.length];
-        //for(int i = 0; i < answerChoice.length; i++) {
-
-            //LinearLayout ll = new LinearLayout(this);
-            //ll.setOrientation(LinearLayout.HORIZONTAL);
-        //for(int i = 0; i < options.length; i++) {
         int i = 0;
-            options[i] = new TextView(this);
-            options[i].setId(View.generateViewId());    // Set id
-            options[i].setText(answerChoice[i]);        // Set text
-            //options[i].setBackgroundResource(R.color.options);
-            //options[i].setPadding(5,5,5,5);
-            options[i].setTextSize(18);                 // Set text size
+/*
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams
+                (layout.getWidth(), layout.getHeight());
+        params.setMargins(25,10,25,10);
 
-            options[i].setWidth(ConstraintLayout.LayoutParams.MATCH_PARENT);
+        TextView text = new TextView(this); // Option
+        text.setId(View.generateViewId());
+        text.setLayoutParams(params);
+        text.setText(options[i]);
+        text.setTextSize(16);
+        // set on click listener
+        layout.addView(text);
 
-        // Set constraints (I think)
-        ConstraintSet set = new ConstraintSet();
-        set.clone(layout);
-        set.connect(options[i].getId(),ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 0);
-        set.connect(options[i].getId(),ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 0);
-        if(i != 0){
-            set.connect(options[i].getId(), ConstraintSet.TOP, options[i-1].getId(), ConstraintSet.TOP, 0);
-        }
-        set.applyTo(layout);
-
-        layout.addView(options[i]);
-        //}
-
+*/
     }
 
-}
+} // class
