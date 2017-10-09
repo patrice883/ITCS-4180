@@ -40,3 +40,11 @@ https://gitlab.com/mshehab/uncc-mobile-apps-fall-2017
 * Downloading Images  
 * Managing Params HttpURLConnection GET and POST  
 * Data Passing Using Interfaces
+  
+## Week 6  
+### API and Data Parsing  
+* Intro to APIs  
+* JSON Parsing  
+* Android and XML Parsing  
+* XML SAX Parser  
+* XML Pull Parser
