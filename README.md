@@ -45,7 +45,7 @@ https://gitlab.com/mshehab/uncc-mobile-apps-fall-2017
 ### API and Data Parsing  
 * Intro to APIs  
 * JSON Parsing  
+    http://www.jsoneditoronline.org/  
 * Android and XML Parsing  
 * XML SAX Parser  
 * XML Pull Parser  
-http://www.jsoneditoronline.org/  
