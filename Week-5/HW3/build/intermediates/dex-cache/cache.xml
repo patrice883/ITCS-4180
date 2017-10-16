@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="C:\CompSci\GitHub\ITCS-4180\Week-5\HW3\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="C:\CompSci\GitHub\ITCS-4180\Week-5\HW3\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_64538044c4898ffa58f6c882e565c2a33bc8b8d7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\CompSci\GitHub\ITCS-4180\Week-5\HW3\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="f63d7a8c5242fa7abe5321cc84f571b12a1f9531">
+        <dex dex="C:\CompSci\GitHub\ITCS-4180\Week-5\HW3\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_56ef2e01598558a27f6e91c18866117a757c85fd\classes.dex" />
+    </item>
+
+</items>
