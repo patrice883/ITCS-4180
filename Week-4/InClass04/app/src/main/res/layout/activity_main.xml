@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="itcs4180.inclass04.MainActivity"
+    tools:context="com.example.devansh.inclass04.MainActivity"
 
     android:paddingTop="30dp"
     android:paddingLeft="20dp"
@@ -87,7 +87,6 @@
         android:layout_marginTop="20dp"
 
         android:max="15"
-        android:progress="0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtSelectLength" />
@@ -123,8 +122,9 @@
 
         android:layout_marginTop="30dp"
 
-        android:text="@string/gen_pass_thread"
+        android:onClick="clickMe"
 
+        android:text="@string/gen_pass_thread"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtPass" />
@@ -136,6 +136,7 @@
 
         android:layout_marginTop="5dp"
 
+        android:onClick="clickMe2"
         android:text="@string/gen_pass_async"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
