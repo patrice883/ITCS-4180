@@ -49,3 +49,16 @@ https://gitlab.com/mshehab/uncc-mobile-apps-fall-2017
 * Android and XML Parsing  
 * XML SAX Parser  
 * XML Pull Parser  
+
+## Week 7  
+### Midterm  
+Midterm and Midterm Practice
+
+## Week 8  
+### Listview and Cardview  
+* ListViews and Adapters  
+* Managing Simple ListView (With and Without objects)  
+* Updating ListView Data  
+* Extending ListView ArrayAdapter  
+* Using RecyclerViews  
+* Using CardViews
