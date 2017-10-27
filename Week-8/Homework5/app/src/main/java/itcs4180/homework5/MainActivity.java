@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 podCasts.get(i).color = false;
             }
 
+            ((TextView)findViewById(R.id.txtSearch)).setText("daily");
             generateListView(podCasts);
         }
     }
