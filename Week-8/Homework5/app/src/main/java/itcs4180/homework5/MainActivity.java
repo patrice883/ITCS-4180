@@ -8,33 +8,45 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Date;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private String ITUNES_URL = "https://itunes.apple.com/us/rss/toppodcasts/limit=30/xml";
 
+    ArrayList<Podcast> podCasts = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        setTitle("iTunes Top Podcasts");
         connectToAPI();
     }
 
 
     private void generateListView(ArrayList<Podcast> podcasts){
         Log.d("Test-GenerateListView", "We got here!");
-
+        Log.d("Test-Async", "" + podcasts.toString());
+        ListView listView = (ListView)findViewById(R.id.listView);
+        PodCastAdapter adapter = new PodCastAdapter(this, R.layout.podcast_viewer, podcasts);
+        listView.setAdapter(adapter);
 
     }
 
@@ -63,6 +75,46 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        if(view.getId() == R.id.btnGo){
+            Log.d("Test-onClick", "Go button was clicked");
+            TextView text = (TextView) findViewById(R.id.txtSearch);
+            String search = text.getText().toString();
+            if(!search.isEmpty()){
+
+                ArrayList<Podcast> sortPodcast = new ArrayList<>(podCasts);
+                int index = 0;
+                for(int i = 0; i < sortPodcast.size(); i++){
+
+
+                    if(sortPodcast.get(i).title.toLowerCase().contains(search.toLowerCase())){
+                        sortPodcast.add(index,sortPodcast.remove(i));
+                        sortPodcast.get(index).color = true;
+
+                        index++;
+                        Log.d("Test-sort", "We just added i to a new index ... i = " + i + " index = " + index);
+                    }
+
+
+
+                }
+                generateListView(sortPodcast);
+
+            }else{
+                Toast.makeText(this, "No String Entered in Search Bar", Toast.LENGTH_SHORT).show();
+            }
+
+        }else if(view.getId() == R.id.btnClear){
+            for(int i = 0; i < podCasts.size(); i++){
+                podCasts.get(i).color = false;
+            }
+
+            generateListView(podCasts);
+        }
     }
 
     public class AsyncItunes extends AsyncTask<String, Void, ArrayList<Podcast>> {
@@ -94,6 +146,9 @@ public class MainActivity extends AppCompatActivity {
                     podcasts = PodcastParser.PodcastsPullParser.parsePodcasts(connection.getInputStream());
                 }
 
+                //Log.d("Test-pods", "Podcasts length : " + podcasts.size());
+                //Log.d("Test-pods", "Podcasts are : " + podcasts.toString());
+
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -119,6 +174,26 @@ public class MainActivity extends AppCompatActivity {
                 loading.dismiss();
                 loading.setProgress(0);
 
+//                podcasts.sort(new Comparator<Podcast>() {
+//                    @Override
+//                    public int compare(Podcast podcast, Podcast t1) {
+//
+//                        Date one = null;
+//                        Date two = null;
+//                        try {
+//                            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM dd, yyyy");
+//                            one = simpleDateFormat.parse(podcast.releaseDate);
+//                            two = simpleDateFormat.parse(t1.releaseDate);
+//                        } catch (ParseException e) {
+//                            Log.d("test-ERROR", "one date could not be parsed");
+//                        }
+//
+//                        return one.compareTo(two);
+//                    }
+//                });
+                podCasts = podcasts;
+                findViewById(R.id.btnGo).setOnClickListener(MainActivity.this);
+                findViewById(R.id.btnClear).setOnClickListener(MainActivity.this);
                 generateListView(podcasts);
 
             } else {
