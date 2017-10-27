@@ -55,8 +55,10 @@ public class PodCastAdapter extends ArrayAdapter<Podcast>{
             Picasso.with(getContext()).load(podcast.imageURlsmall).into(viewPoopy.imgSmall);
 
         if(podcast.color){
-            Log.d("Test-bgcolor", "We got here");
+           // Log.d("Test-bgcolor", "We got here");
             viewPoopy.layout.setBackgroundColor(Color.parseColor("#ACFA58"));
+        }else{
+            viewPoopy.layout.setBackgroundResource(0);
         }
 
         return convertView;
