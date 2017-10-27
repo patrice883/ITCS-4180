@@ -30,36 +30,34 @@ public class PodCastAdapter extends ArrayAdapter<Podcast>{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-
         Podcast podcast = getItem(position);
-
         ViewPoopy viewPoopy;
+
         if(convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.podcast_viewer, parent, false);
 
             viewPoopy = new ViewPoopy();
             viewPoopy.txtTitle = (TextView) convertView.findViewById(R.id.txtTitle);
             viewPoopy.imgSmall = (ImageView) convertView.findViewById(R.id.imgSmall);
-            viewPoopy.txtTitle.setText(podcast.title);
+
 
             if(podcast.color){
-                Log.d("test-bgcolor", "We got here");
+                Log.d("Test-bgcolor", "We got here");
                 RelativeLayout layout = convertView.findViewById(R.id.podcastLayout);
                 layout.setBackgroundColor(R.color.green);
             }
 
-            if(podcast.imageURlsmall.equals("") || podcast.imageURlsmall == null){
-                Log.d("demo", "THIS HAS HAPPENED");
-            }else
-                Picasso.with(getContext()).load(podcast.imageURlsmall).into(viewPoopy.imgSmall);
+            convertView.setTag(viewPoopy);
 
         } else {
             viewPoopy = (ViewPoopy) convertView.getTag();
         }
 
-
-
-
+        viewPoopy.txtTitle.setText(podcast.title);
+        if(podcast.imageURlsmall.equals("") || podcast.imageURlsmall == null){
+            Log.d("Test", "Null image.");
+        }else
+            Picasso.with(getContext()).load(podcast.imageURlsmall).into(viewPoopy.imgSmall);
 
         return convertView;
     }

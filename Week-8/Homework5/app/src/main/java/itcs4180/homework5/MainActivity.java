@@ -42,8 +42,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void generateListView(ArrayList<Podcast> podcasts){
+
         Log.d("Test-GenerateListView", "We got here!");
-        Log.d("Test-Async", "" + podcasts.toString());
+        Log.d("Test-GenerateListView", "" + podcasts.toString());
+
         ListView listView = (ListView)findViewById(R.id.listView);
         PodCastAdapter adapter = new PodCastAdapter(this, R.layout.podcast_viewer, podcasts);
         listView.setAdapter(adapter);
@@ -195,6 +197,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 podCasts = podcasts;
                 findViewById(R.id.btnGo).setOnClickListener(MainActivity.this);
                 findViewById(R.id.btnClear).setOnClickListener(MainActivity.this);
+
                 generateListView(podcasts);
 
             } else {
