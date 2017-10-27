@@ -4,4 +4,8 @@
     <string name="btnGo">Go</string>
     <string name="btnClear">Clear</string>
     <string name="txtSearch">Search...</string>
+    <string name="title">Title</string>
+    <string name="updated_on">Updated on:</string>
+    <string name="date">Date</string>
+    <string name="summary">Summary</string>
 </resources>
