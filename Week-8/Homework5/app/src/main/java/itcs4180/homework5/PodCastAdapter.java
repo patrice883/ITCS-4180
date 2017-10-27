@@ -1,6 +1,7 @@
 package itcs4180.homework5;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -39,13 +40,7 @@ public class PodCastAdapter extends ArrayAdapter<Podcast>{
             viewPoopy = new ViewPoopy();
             viewPoopy.txtTitle = (TextView) convertView.findViewById(R.id.txtTitle);
             viewPoopy.imgSmall = (ImageView) convertView.findViewById(R.id.imgSmall);
-
-
-            if(podcast.color){
-                Log.d("Test-bgcolor", "We got here");
-                RelativeLayout layout = convertView.findViewById(R.id.podcastLayout);
-                layout.setBackgroundColor(R.color.green);
-            }
+            viewPoopy.layout = convertView.findViewById(R.id.podcastLayout);
 
             convertView.setTag(viewPoopy);
 
@@ -59,12 +54,18 @@ public class PodCastAdapter extends ArrayAdapter<Podcast>{
         }else
             Picasso.with(getContext()).load(podcast.imageURlsmall).into(viewPoopy.imgSmall);
 
+        if(podcast.color){
+            Log.d("Test-bgcolor", "We got here");
+            viewPoopy.layout.setBackgroundColor(Color.parseColor("#ACFA58"));
+        }
+
         return convertView;
     }
     // View Holder to cache the views
     private static class ViewPoopy{
         TextView txtTitle;
         ImageView imgSmall;
+        RelativeLayout layout;
     }
 
 

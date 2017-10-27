@@ -63,26 +63,52 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if(view.getId() == R.id.btnGo){
             Log.d("Test-onClick", "Go button was clicked");
-            TextView text = (TextView) findViewById(R.id.txtSearch);
-            String search = text.getText().toString();
-            if(!search.isEmpty()){
 
+            // Reset colors from possible previous clicks
+            for(int i = 0; i < podCasts.size(); i++){
+                podCasts.get(i).color = false;
+            }
+
+            TextView text = (TextView) findViewById(R.id.txtSearch);
+            String search = text.getText().toString().trim();
+
+            ArrayList<Podcast> found = new ArrayList<>();
+
+            if(!search.isEmpty() && !search.equals(R.string.txtSearch)){
                 ArrayList<Podcast> sortPodcast = new ArrayList<>(podCasts);
+
                 int index = 0;
                 for(int i = 0; i < sortPodcast.size(); i++){
 
-
-                    if(sortPodcast.get(i).title.toLowerCase().contains(search.toLowerCase())){
+                    if((podCasts.get(i).title).toLowerCase().contains(search.toLowerCase())){
                         sortPodcast.add(index,sortPodcast.remove(i));
                         sortPodcast.get(index).color = true;
+
+                        //found.add(podCasts.get(i)); // Attempt 3
+
+                        /* Attempt 2 ;-; ?? Idk I lost track wah
+                        Podcast p = podCasts.get(i);
+
+                        sortPodcast.remove(p);
+                        sortPodcast.add(index, p);
+                        sortPodcast.get(index).color = true;
+                        */
 
                         index++;
                         Log.d("Test-sort", "We just added i to a new index ... i = " + i + " index = " + index);
                     }
-
-
-
                 }
+
+                /* Attempt 3 ;-;
+                for(int i = 0; i < found.size(); i++){
+                    Podcast p = found.get(i);
+
+                    sortPodcast.remove(p);
+                    sortPodcast.add(i, p);
+                    sortPodcast.get(i).color = true;
+                }
+                */
+
                 generateListView(sortPodcast);
 
             }else{
@@ -94,11 +120,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 podCasts.get(i).color = false;
             }
 
-            ((TextView)findViewById(R.id.txtSearch)).setText("daily");
+            ((TextView)findViewById(R.id.txtSearch)).setText(R.string.txtSearch);
             generateListView(podCasts);
         }
     }
-    
     
     ///////////////////////////////////////////////////////////////////////////
     // Connect to API
