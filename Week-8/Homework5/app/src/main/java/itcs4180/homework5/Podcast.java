@@ -15,7 +15,6 @@ public class Podcast implements Comparable<Podcast>{
 
     String title, summary, releaseDate, updatedDate;
     String imageURlsmall, imageURLlarge;
-    boolean color = false;
 
     public Podcast() {
     }

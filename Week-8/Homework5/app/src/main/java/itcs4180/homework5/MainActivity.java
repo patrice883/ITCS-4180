@@ -16,7 +16,6 @@ import android.widget.Toast;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -83,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(view.getId() == R.id.btnGo){
             Log.d("Test-onClick", "Go button was clicked");
             TextView text = (TextView) findViewById(R.id.txtSearch);
+
             String search = text.getText().toString();
             if(!search.isEmpty()){
 
@@ -93,8 +93,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     if(sortPodcast.get(i).title.toLowerCase().contains(search.toLowerCase())){
                         sortPodcast.add(index,sortPodcast.remove(i));
-                        sortPodcast.get(index).color = true;
-
                         index++;
                         Log.d("Test-sort", "We just added i to a new index ... i = " + i + " index = " + index);
                     }
@@ -109,9 +107,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
         }else if(view.getId() == R.id.btnClear){
-            for(int i = 0; i < podCasts.size(); i++){
-                podCasts.get(i).color = false;
-            }
+
 
             ((TextView)findViewById(R.id.txtSearch)).setText("daily");
             generateListView(podCasts);
@@ -178,7 +174,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                podcasts.sort(new Comparator<Podcast>() {
 //                    @Override
 //                    public int compare(Podcast podcast, Podcast t1) {
-//
 //                        Date one = null;
 //                        Date two = null;
 //                        try {
@@ -192,6 +187,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                        return one.compareTo(two);
 //                    }
 //                });
+                podcasts.sort(new Comparator<Podcast>() {
+                    @Override
+                    public int compare(Podcast podcast, Podcast t1) {
+                        Date one = null;
+                        Date two = null;
+                        try {
+                            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM dd, yyyy");
+                            one = simpleDateFormat.parse(podcast.releaseDate);
+                            two = simpleDateFormat.parse(t1.releaseDate);
+                        } catch (ParseException e) {
+                            Log.d("test-ERROR", "one date could not be parsed");
+                        }
+
+                        return one.compareTo(two);
+                    }
+                });
+
                 podCasts = podcasts;
                 findViewById(R.id.btnGo).setOnClickListener(MainActivity.this);
                 findViewById(R.id.btnClear).setOnClickListener(MainActivity.this);
