@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">iTunes Top Podcasts</string>
+
+    <string name="btnGo">Go</string>
+    <string name="btnClear">Clear</string>
+    <string name="txtSearch">Search...</string>
+</resources>
