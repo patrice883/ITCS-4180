@@ -38,21 +38,41 @@ public class PodCastAdapter extends ArrayAdapter<Podcast>{
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.podcast_viewer, parent, false);
 
             viewPoopy = new ViewPoopy();
+<<<<<<< HEAD
+            viewPoopy.txtTitle = convertView.findViewById(R.id.txtTitle);
+            viewPoopy.imgSmall = convertView.findViewById(R.id.imgSmall);
+
+
+            convertView.setTag(viewPoopy);
+
+=======
             viewPoopy.txtTitle = (TextView) convertView.findViewById(R.id.txtTitle);
             viewPoopy.imgSmall = (ImageView) convertView.findViewById(R.id.imgSmall);
             viewPoopy.layout = convertView.findViewById(R.id.podcastLayout);
 
             convertView.setTag(viewPoopy);
+>>>>>>> origin/master
 
         } else {
             viewPoopy = (ViewPoopy) convertView.getTag();
+
+<<<<<<< HEAD
         }
 
+        viewPoopy.txtTitle.setText(podcast.title);
+
+        if(podcast.imageURlsmall.equals("") || podcast.imageURlsmall == null){
+            Log.d("demo", "THIS HAS HAPPENED");
+        }else
+            Picasso.with(getContext()).load(podcast.imageURlsmall).into(viewPoopy.imgSmall);
+
+=======
         viewPoopy.txtTitle.setText(podcast.title);
         if(podcast.imageURlsmall.equals("") || podcast.imageURlsmall == null){
             Log.d("Test", "Null image.");
         }else
             Picasso.with(getContext()).load(podcast.imageURlsmall).into(viewPoopy.imgSmall);
+>>>>>>> origin/master
 
         if(podcast.color){
            // Log.d("Test-bgcolor", "We got here");
