@@ -40,9 +40,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    ///////////////////////////////////////////////////////////////////////////
+    // Generate View
+    ///////////////////////////////////////////////////////////////////////////
     private void generateListView(ArrayList<Podcast> podcasts){
+
         Log.d("Test-GenerateListView", "We got here!");
-        Log.d("Test-Async", "" + podcasts.toString());
+        Log.d("Test-GenerateListView", "" + podcasts.toString());
+
         ListView listView = (ListView)findViewById(R.id.listView);
         PodCastAdapter adapter = new PodCastAdapter(this, R.layout.podcast_viewer, podcasts);
         listView.setAdapter(adapter);
@@ -50,32 +55,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    // Connect to API
+    // Button On Click
     ///////////////////////////////////////////////////////////////////////////
-
-    private void connectToAPI() {
-        if (isConnected()) {
-            Log.d("Test-ConnectToAPI", "Is connected to internet. Ready to connect yayayayayy");
-            //new AsyncSource(sources, MainActivity.this).execute(SOURCE_URL);
-            new AsyncItunes().execute(ITUNES_URL);
-        } else {
-            Log.d("Test-ConnectToAPI", "Is not connected to internet.");
-            Toast.makeText(MainActivity.this, "Not Connected to Internet", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private boolean isConnected() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-
-        if (networkInfo == null || !networkInfo.isConnected() ||
-                (networkInfo.getType() != ConnectivityManager.TYPE_WIFI
-                        && networkInfo.getType() != ConnectivityManager.TYPE_MOBILE)) {
-            return false;
-        }
-        return true;
-    }
-
     @Override
     public void onClick(View view) {
 
@@ -113,7 +94,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             generateListView(podCasts);
         }
     }
+    
+    
+    ///////////////////////////////////////////////////////////////////////////
+    // Connect to API
+    ///////////////////////////////////////////////////////////////////////////
 
+    private void connectToAPI() {
+        if (isConnected()) {
+            Log.d("Test-ConnectToAPI", "Is connected to internet. Ready to connect yayayayayy");
+            //new AsyncSource(sources, MainActivity.this).execute(SOURCE_URL);
+            new AsyncItunes().execute(ITUNES_URL);
+        } else {
+            Log.d("Test-ConnectToAPI", "Is not connected to internet.");
+            Toast.makeText(MainActivity.this, "Not Connected to Internet", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean isConnected() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        if (networkInfo == null || !networkInfo.isConnected() ||
+                (networkInfo.getType() != ConnectivityManager.TYPE_WIFI
+                        && networkInfo.getType() != ConnectivityManager.TYPE_MOBILE)) {
+            return false;
+        }
+        return true;
+    }
+    
     public class AsyncItunes extends AsyncTask<String, Void, ArrayList<Podcast>> {
 
         //Context context;
@@ -171,6 +180,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 loading.dismiss();
                 loading.setProgress(0);
 
+<<<<<<< HEAD
 //                podcasts.sort(new Comparator<Podcast>() {
 //                    @Override
 //                    public int compare(Podcast podcast, Podcast t1) {
@@ -190,6 +200,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 podcasts.sort(new Comparator<Podcast>() {
                     @Override
                     public int compare(Podcast podcast, Podcast t1) {
+=======
+                podcasts.sort(new Comparator<Podcast>() {
+                    @Override
+                    public int compare(Podcast podcast, Podcast t1) {
+
+>>>>>>> origin/master
                         Date one = null;
                         Date two = null;
                         try {
@@ -207,6 +223,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 podCasts = podcasts;
                 findViewById(R.id.btnGo).setOnClickListener(MainActivity.this);
                 findViewById(R.id.btnClear).setOnClickListener(MainActivity.this);
+
                 generateListView(podcasts);
 
             } else {

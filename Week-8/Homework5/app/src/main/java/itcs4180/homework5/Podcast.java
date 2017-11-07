@@ -14,15 +14,19 @@ import java.util.Date;
 public class Podcast implements Comparable<Podcast>{
 
     String title, summary, releaseDate, updatedDate;
+    Date rDate, uDate;
     String imageURlsmall, imageURLlarge;
 
     public Podcast() {
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    // toString and compareTo()
+    ///////////////////////////////////////////////////////////////////////////
     @Override
     public String toString() {
         return "Podcast{" +
-                "title='" + title + '\'' +
+                "title='" + title + '\'' + "date=" + releaseDate +
                 '}' + "\n";
     }
 
@@ -41,4 +45,5 @@ public class Podcast implements Comparable<Podcast>{
 
         return one.compareTo(two);
     }
+
 }
