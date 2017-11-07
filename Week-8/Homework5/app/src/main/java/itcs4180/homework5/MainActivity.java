@@ -2,6 +2,7 @@ package itcs4180.homework5;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,14 +45,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ///////////////////////////////////////////////////////////////////////////
     // Generate View
     ///////////////////////////////////////////////////////////////////////////
-    private void generateListView(ArrayList<Podcast> podcasts){
+    private void generateListView(final ArrayList<Podcast> podcasts){
 
         Log.d("Test-GenerateListView", "We got here!");
-        Log.d("Test-GenerateListView", "" + podcasts.toString());
+        //Log.d("Test-GenerateListView", "" + podcasts.toString());
 
         ListView listView = (ListView)findViewById(R.id.listView);
         PodCastAdapter adapter = new PodCastAdapter(this, R.layout.podcast_viewer, podcasts);
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(
+                new AdapterView.OnItemClickListener(){
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+                        Log.d("Test-ListView", podcasts.get(position).title + " was clicked!");
+                        Podcast clickedSource = podcasts.get(position);
+
+                        Intent intent = new Intent(MainActivity.this, PodcastDetailsActivity.class);
+                        intent.putExtra("PODCAST", clickedSource);
+                        startActivity(intent);
+
+                    }
+                }
+        );
 
     }
 
@@ -62,25 +81,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if(view.getId() == R.id.btnGo){
             Log.d("Test-onClick", "Go button was clicked");
+
+            // Reset colors from possible previous clicks
+            for(int i = 0; i < podCasts.size(); i++){
+                podCasts.get(i).color = false;
+            }
+
             TextView text = (TextView) findViewById(R.id.txtSearch);
+<<<<<<< HEAD
 
             String search = text.getText().toString();
             if(!search.isEmpty()){
+=======
+            String search = text.getText().toString().trim();
+>>>>>>> origin/master
 
+            ArrayList<Podcast> found = new ArrayList<>();
+
+            if(!search.isEmpty() && !search.equals(R.string.txtSearch)){
                 ArrayList<Podcast> sortPodcast = new ArrayList<>(podCasts);
+
                 int index = 0;
                 for(int i = 0; i < sortPodcast.size(); i++){
 
+                    if((podCasts.get(i).title).toLowerCase().contains(search.toLowerCase())){
 
-                    if(sortPodcast.get(i).title.toLowerCase().contains(search.toLowerCase())){
                         sortPodcast.add(index,sortPodcast.remove(i));
+<<<<<<< HEAD
+=======
+                        sortPodcast.get(index).color = true;
+>>>>>>> origin/master
                         index++;
                         Log.d("Test-sort", "We just added i to a new index ... i = " + i + " index = " + index);
                     }
-
-
-
                 }
+
+
                 generateListView(sortPodcast);
 
             }else{
@@ -90,11 +126,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }else if(view.getId() == R.id.btnClear){
 
 
-            ((TextView)findViewById(R.id.txtSearch)).setText("daily");
+            ((TextView)findViewById(R.id.txtSearch)).setHint(R.string.txtSearch);
             generateListView(podCasts);
         }
     }
-    
     
     ///////////////////////////////////////////////////////////////////////////
     // Connect to API

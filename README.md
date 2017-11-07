@@ -40,7 +40,7 @@ https://gitlab.com/mshehab/uncc-mobile-apps-fall-2017
 * Downloading Images  
 * Managing Params HttpURLConnection GET and POST  
 * Data Passing Using Interfaces
-  
+
 ## Week 6  
 ### API and Data Parsing  
 * Intro to APIs  
@@ -62,3 +62,18 @@ Midterm and Midterm Practice
 * Extending ListView ArrayAdapter  
 * Using RecyclerViews  
 * Using CardViews
+
+## Week 9  
+### Fragments  
+* Fragment Life Cycle  
+* Fragment UI Components  
+* Sending Data From Activity to Fragment  
+* Sending Data from Fragment to Activity  
+* Dynamically Adding Fragments  
+* Managing Multiple Fragments  
+
+## Week 10  
+### HTTP and Other Popular Libraries
+Helpful links:  
+https://github.com/square/okhttp/wiki/Recipes  
+https://github.com/google/gson
