@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">InClass08Pieces</string>
+
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">E Mail</string>
+    <string name="choose_pass">Choose Password</string>
+    <string name="repeat_pass">Repeat Password</string>
+
+    <string name="cancel">Cancel</string>
+    <string name="sign_up">Sign Up</string>
+
+</resources>
