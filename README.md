@@ -75,4 +75,5 @@ Midterm and Midterm Practice
 ## Week 10  
 ### HTTP and Other Popular Libraries
 Helpful links:  
-https://github.com/square/okhttp/wiki/Recipes
+https://github.com/square/okhttp/wiki/Recipes  
+https://github.com/google/gson
