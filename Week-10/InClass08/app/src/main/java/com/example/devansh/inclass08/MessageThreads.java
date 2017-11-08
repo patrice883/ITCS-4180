@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -43,27 +44,61 @@ public class MessageThreads extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_threads);
 
-        if(getIntent() != null){
+        if(getIntent() != null) {
             token = (UserToken) getIntent().getExtras().get(MainActivity.TOKEN_KEY);
+
+            user = (TextView) findViewById(R.id.txtUser);
+            user.setText(token.user_fname + " " + token.user_lname);
+
+            getThreads();
+
+        }
+        else{
+            printToast("Error. Returning to Login");
+            finish();
         }
 
-        user = (TextView)findViewById(R.id.txtUser);
-        user.setText(token.user_fname + " " + token.user_lname);
 
-        getThreads();
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Logout button
+    ///////////////////////////////////////////////////////////////////////////
+    public void logoutClick(View v){
+        Log.d("test-msgs", "Logout was clicked");
+
+        // Delete user token
+        token = null;
+
+        // Go back to Login
+        Intent intent = new Intent(MessageThreads.this, MainActivity.class);
+        intent.putExtra(MainActivity.TOKEN_KEY, token);
+        startActivity(intent);
+        finish();
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Add New Thread Button
+    ///////////////////////////////////////////////////////////////////////////
+    public void addNewThreadClick(View v){
+        Log.d("test-msgs", "Add New Thread was clicked");
+
+        // Get text from edit text
+        String threadName = (findViewById(R.id.editAddNewThread)).toString();
 
 
 
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    // Get Thread Info
+    ///////////////////////////////////////////////////////////////////////////
     private void getThreads(){
-
 
         Request request = new Request.Builder()
                 .url(API_GET_THREAD)
                 .header("Authorization", "BEARER " + token.token)
                 .build();
-
 
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -77,7 +112,7 @@ public class MessageThreads extends AppCompatActivity {
                 Gson gson = new Gson();
 
                 if(response.isSuccessful()){
-                    Log.d("test_signup", "Successfull YAYY");
+                    Log.d("test-msgs", "Successfull YAYY");
                     //Toast.makeText(SignUp.this, "User Successfully Created", Toast.LENGTH_SHORT).show();
                     //finish();
 
@@ -103,21 +138,27 @@ public class MessageThreads extends AppCompatActivity {
     private void generateListView(){
 
         String[] t = new String[threads.threads.size()];
-        for(int i = 0; i < threads.threads.size(); i++){
+
+        for(int i = 0; i < t.length; i++){
             t[i] = threads.threads.get(i).title;
-            Log.d("test", "Converting to names and it is : " + t[i].toString());
+            //Log.d("test", "Converting to names and it is : " + t[i].toString());
         }
+
+
+        Log.d("test-msgs", "Generating List View... got array of threads");
 
         ListAdapter sourceAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, t);
         ListView listView = (ListView)findViewById(R.id.listView);
         listView.setAdapter(sourceAdapter);
+
+        Log.d("test-msgs", "Set up list view)");
 
         listView.setOnItemClickListener(
                 new AdapterView.OnItemClickListener(){
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                        Log.d("test", String.valueOf(parent.getItemAtPosition(position)) + " was clicked");
+                        Log.d("test-msgs", String.valueOf(parent.getItemAtPosition(position)) + " was clicked");
                         /*
                         String item = String.valueOf(parent.getItemAtPosition(position));
 

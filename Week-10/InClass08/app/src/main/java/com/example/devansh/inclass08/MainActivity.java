@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String API_ADDMESSAGES = "http://ec2-54-164-74-55.compute-1.amazonaws.com/api/message/add";
     String API_DELETEMESSAGE = "http://ec2-54-164-74-55.compute-1.amazonaws.com/api/message/delete/1";
 
+    UserToken token = null;
 
     public static String TOKEN_KEY = "tokenehehehehehehehehehehehe";
 
@@ -46,10 +47,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle("Chat Room");
+
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         findViewById(R.id.btnSignUp).setOnClickListener(this);
         findViewById(R.id.btnLogin).setOnClickListener(this);
-        //loginUser("user@test.com", "test");
+
+
+        Log.d("test", "hi");
+        if(token != null){
+            Log.d("test", "hi");
+            editTextEmail.setText(token.user_email);
+
+            printToast("Already logged in. Entering Chatroom");
+            goToChatroom();
+        }
 
     }
 
@@ -67,22 +78,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }else if(view.getId() == R.id.btnSignUp){
             Log.d("test", "onClick: SIGNUP WAS CLICKED");
+            goToSignup();
 
-            Intent intent = new Intent(MainActivity.this, SignUp.class);
-            startActivity(intent);
 
         }else{
             Log.d("test", "onClick: SOMETHING RANDOM WAS CLICKED");
         }
     }
 
-
     ///////////////////////////////////////////////////////////////////////////
     // Login Method
     ///////////////////////////////////////////////////////////////////////////
 
     public void loginUser(String email, String pass)  {
-
 
         RequestBody formBody = new FormBody.Builder()
                 .add("email", email )
@@ -111,10 +119,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     // Note: Gson is a library. Converts a Json string to a class
                     // In the class.. make sure the variable names all match the json keys exactly
 
-                    UserToken token = gson.fromJson(response.body().string(), UserToken.class);
-                    Intent intent = new Intent(MainActivity.this, MessageThreads.class);
-                    intent.putExtra(TOKEN_KEY, token);
-                    startActivity(intent);
+                    token = gson.fromJson(response.body().string(), UserToken.class);
+                    goToChatroom();
                 }
                 else{
                     Message msg = gson.fromJson(response.body().string(), Message.class);
@@ -123,6 +129,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // GoTo Methods (MessageThreads and SignUp)
+    ///////////////////////////////////////////////////////////////////////////
+
+    private void goToChatroom(){
+        Intent intent = new Intent(MainActivity.this, MessageThreads.class);
+        intent.putExtra(TOKEN_KEY, token);
+        startActivity(intent);
+        //finish(); // ---------------------------------------------------------------- DO we actually need this?
+                  // ---------------------------------------------------------------- Instructions says to "finish" the login screen
+                  // ---------------------------------------------------------------- but then we can't go back to this (it exits instead when back is pushed)
+    }
+
+    private void goToSignup(){
+        Intent intent = new Intent(MainActivity.this, SignUp.class);
+        startActivity(intent);
+        // finish();
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Supporting Methods
+    ///////////////////////////////////////////////////////////////////////////
 
     void printToast(final String msg){
         editTextEmail.post(new Runnable() {
