@@ -7,6 +7,7 @@ package com.example.devansh.inclass08;
 public class AThread {
 
     String user_fname, user_lname, user_id, id, title, created_at;
+    boolean user_created = false;
 
     @Override
     public String toString() {
@@ -19,6 +20,8 @@ public class AThread {
                 ", created_at='" + created_at + '\'' +
                 '}';
     }
+
+
 
     /*
     {

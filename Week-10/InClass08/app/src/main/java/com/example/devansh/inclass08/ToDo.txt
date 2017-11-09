@@ -1,0 +1,5 @@
+Currently working on Part C3
+ > MessageThreads.java > allow user to add new threads
+ > Need to fix an issue (commented in generateViewListV2)
+ ----> Trying to get the ThreadsAdapter.java to work correctly
+ ----> Added the Delete button, but set to invisible if the thread IS NOT user created

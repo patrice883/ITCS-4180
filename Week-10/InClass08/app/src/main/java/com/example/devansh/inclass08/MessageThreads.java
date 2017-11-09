@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,15 +16,13 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 
-import javax.xml.transform.Source;
-
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
-
-import static com.example.devansh.inclass08.R.id.listView;
 
 public class MessageThreads extends AppCompatActivity {
 
@@ -85,9 +82,38 @@ public class MessageThreads extends AppCompatActivity {
 
         // Get text from edit text
         String threadName = (findViewById(R.id.editAddNewThread)).toString();
+        addThread(threadName);
 
+    }
 
+    private void addThread(String threadName){
+        RequestBody formBody = new FormBody.Builder()
+                .add("title", threadName)
+                .build();
 
+        Request request = new Request.Builder()
+                .url(API_GET_THREAD)
+                .header("Authorization", "BEARER " + token.token)
+                .post(formBody)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                printToast("Failure to Connect to Server");
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+                if(response.isSuccessful()){
+                    Log.d("test-msgs", "Added a Thread. Time to update listview");
+
+                    // Update ListView
+                }
+
+            }
+        });
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -117,14 +143,12 @@ public class MessageThreads extends AppCompatActivity {
                     //finish();
 
                     threads = gson.fromJson(response.body().string(), ManyThreads.class);
-                    generateListView();
+                    generateListViewV2();
                 }
                 else{
-                    // parse JSON to get the error message
-                    /*
-                    Gson gson = new Gson();
+                    //parse JSON to get the error message
                     SignUp.Message msg = gson.fromJson(response.body().string(), SignUp.Message.class);
-                    printToast(msg.message);*/
+                    printToast(msg.message);
 
                 }
             }
@@ -135,7 +159,37 @@ public class MessageThreads extends AppCompatActivity {
     ///////////////////////////////////////////////////////////////////////////
     // Generate Listview
     ///////////////////////////////////////////////////////////////////////////
-    private void generateListView(){
+    private void generateListViewV2(){
+
+        Log.d("test-generatingListView", threads.threads.toString());
+        final ListView listView = (ListView)findViewById(R.id.listView);
+        final ThreadsAdapter adapter = new ThreadsAdapter(this, R.layout.thread_layout, threads.threads);
+
+
+        /**
+         * @ISSUE:
+         * The threads displayed are starting to repeat.
+         * The thread arraylist getting sent in is correct... but for some reason,
+         * it's taking time and the first one's sent in are just repeating
+         * When clicking a thread, the correct title is shown in the Log, even though
+         * the wrong title is being displayed
+         */
+
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(
+                new AdapterView.OnItemClickListener(){
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Log.d("test-msgs", String.valueOf(parent.getItemAtPosition(position)) + " was clicked");
+
+                    }
+                }
+        );
+
+    }
+
+    private void generateListViewV1(){
 
         String[] t = new String[threads.threads.size()];
 
@@ -174,7 +228,6 @@ public class MessageThreads extends AppCompatActivity {
                     }
                 }
         );
-
 
 
     }
