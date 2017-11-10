@@ -30,16 +30,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private final OkHttpClient client = new OkHttpClient();
 
     String API_LOGINURL = "http://ec2-54-164-74-55.compute-1.amazonaws.com/api/login";
-    //String API_SIGNUPURL = "http://ec2-54-164-74-55.compute-1.amazonaws.com/api/signup";
-
-    String API_GET_MESSAGES = "http://ec2-54-164-74-55.compute-1.amazonaws.com/api/messages/1";
-    String API_ADDMESSAGES = "http://ec2-54-164-74-55.compute-1.amazonaws.com/api/message/add";
-    String API_DELETEMESSAGE = "http://ec2-54-164-74-55.compute-1.amazonaws.com/api/message/delete/1";
-
     UserToken token = null;
-
     public static String TOKEN_KEY = "tokenehehehehehehehehehehehe";
-
     EditText editTextEmail;
 
     @Override
@@ -51,16 +43,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         findViewById(R.id.btnSignUp).setOnClickListener(this);
         findViewById(R.id.btnLogin).setOnClickListener(this);
-
-
-        Log.d("test", "hi");
-        if(token != null){
-            Log.d("test", "hi");
-            editTextEmail.setText(token.user_email);
-
-            printToast("Already logged in. Entering Chatroom");
-            goToChatroom();
-        }
 
     }
 
@@ -105,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Toast.makeText(MainActivity.this, "Unable to Connect to Server", Toast.LENGTH_SHORT).show();
+                printToast("Unable to Connect to Server");
             }
 
             @Override
@@ -115,9 +97,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 if(response.isSuccessful()){
                     Log.d("test", "Successfull YAYY");
-
-                    // Note: Gson is a library. Converts a Json string to a class
-                    // In the class.. make sure the variable names all match the json keys exactly
 
                     token = gson.fromJson(response.body().string(), UserToken.class);
                     goToChatroom();
@@ -137,9 +116,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void goToChatroom(){
         Intent intent = new Intent(MainActivity.this, MessageThreads.class);
         intent.putExtra(TOKEN_KEY, token);
+
         startActivity(intent);
+
+        for(int i = 0; i < 100000; i++)
+            for(int j = 0; j < 100; j++);
+
+        editTextEmail.post(new Runnable() {
+            @Override
+            public void run() {
+                ((TextView) findViewById(R.id.editTextEmail)).setText("");
+                ((TextView) findViewById(R.id.editTextPassword)).setText("");
+            }
+        });
+
         //finish(); // ---------------------------------------------------------------- DO we actually need this?
-                  // ---------------------------------------------------------------- Instructions says to "finish" the login screen
+                   // ---------------------------------------------------------------- Instructions says to "finish" the login screen
                   // ---------------------------------------------------------------- but then we can't go back to this (it exits instead when back is pushed)
     }
 

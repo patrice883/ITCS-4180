@@ -14,5 +14,6 @@
     <string name="sign_up">Sign Up</string>
     <string name="curr_threads">Current Threads</string>
     <string name="add_thread">Add New Thread</string>
+    <string name="msg">Message</string>
 
 </resources>

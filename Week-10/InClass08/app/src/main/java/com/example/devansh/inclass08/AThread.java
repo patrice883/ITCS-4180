@@ -1,10 +1,12 @@
 package com.example.devansh.inclass08;
 
+import java.io.Serializable;
+
 /**
  * Created by devansh on 11/6/17.
  */
 
-public class AThread {
+public class AThread implements Serializable{
 
     String user_fname, user_lname, user_id, id, title, created_at;
     boolean user_created = false;

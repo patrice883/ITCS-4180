@@ -35,7 +35,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
+        setTitle("Sign Up");
         editEmail = (EditText) findViewById(R.id.editEmail);
 
         findViewById(R.id.btnSignUpFinal).setOnClickListener(this);

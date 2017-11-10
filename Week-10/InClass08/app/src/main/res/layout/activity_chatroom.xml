@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.devansh.inclass08.MessageThreads">
+    tools:context="com.example.devansh.inclass08.Chatroom">
 
     <RelativeLayout
         android:id="@+id/relativeHeader"
@@ -16,81 +16,64 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/txtUser"
+            android:id="@+id/txtChatroomName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Username Goes Here"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:text="Thread Name Goes Here"
             android:textSize="24sp"
             tools:layout_editor_absoluteX="20dp"
-            tools:layout_editor_absoluteY="165dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="20dp" />
+            tools:layout_editor_absoluteY="165dp" />
 
         <ImageView
-            android:id="@+id/imgLogOut"
+            android:id="@+id/imgGoBack"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:onClick="logoutClick"
-            app:srcCompat="@drawable/ic_logout"
+            app:srcCompat="@drawable/homeicon"
             tools:layout_editor_absoluteX="334dp"
             tools:layout_editor_absoluteY="0dp" />
 
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/txtAddNewMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/curr_threads"
-        android:textSize="21sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeHeader" />
-
     <EditText
         android:id="@+id/editAddNewThread"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_width="271dp"
+        android:layout_height="44dp"
+        android:layout_marginBottom="9dp"
         android:layout_marginLeft="20dp"
         android:layout_marginStart="20dp"
         android:ems="10"
-        android:hint="@string/add_thread"
+        android:hint="@string/msg"
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent" />
 
     <ImageView
-        android:id="@+id/imgAddNewBtn"
+        android:id="@+id/imgSendMessage"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginBottom="10dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
-        android:onClick="addNewThreadClick"
-        android:tint="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:srcCompat="@drawable/ic_add" />
+        app:srcCompat="@drawable/send" />
 
     <ListView
-        android:id="@+id/listView"
-        android:layout_width="wrap_content"
-        android:layout_height="360dp"
-        android:layout_marginBottom="70dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="100dp"
+        android:id="@+id/listViewMessages"
+        android:layout_width="375dp"
+        android:layout_height="400dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
         app:layout_constraintBottom_toTopOf="@+id/editAddNewThread"
-        app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtAddNewMessage"
-        app:layout_constraintVertical_bias="0.586" />
+        app:layout_constraintTop_toBottomOf="@+id/relativeHeader" />
 
 </android.support.constraint.ConstraintLayout>

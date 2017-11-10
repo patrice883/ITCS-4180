@@ -21,7 +21,6 @@ class ThreadsAdapter extends ArrayAdapter<AThread> {
 
     public ThreadsAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<AThread> objects) {
         super(context, resource, objects);
-        //Log.d("test-threadAdapter", objects.toString());
     }
 
     @Override
@@ -29,40 +28,33 @@ class ThreadsAdapter extends ArrayAdapter<AThread> {
 
 
         AThread thread = getItem(position);
-        Log.d("test-threadAdapter", thread.title);
+        Log.d("test-threadAdapter", "Currently ON : " + thread.title + " and Position : " + position);
 
         AThreadViewThingy viewThingy;
+
+
         if(convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.thread_layout, parent, false);
             viewThingy = new AThreadViewThingy();
-
-            viewThingy.txtThreadName = (TextView) convertView.findViewById(R.id.txtThreadName);
-            viewThingy.imgDelete = (ImageView) convertView.findViewById(R.id.imgDelete);
-
-
-            viewThingy.txtThreadName.setText(thread.title);
-            if(thread.user_created == true){
-                viewThingy.imgDelete.setVisibility(View.VISIBLE);
-                viewThingy.imgDelete.setClickable(true);
-                viewThingy.imgDelete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Log.d("test-threadAdapter", "Delete was clicked");
-
-                        // Delete thread
-
-
-
-
-
-                    }
-                });
-
-            }
-
         } else {
             viewThingy = (AThreadViewThingy) convertView.getTag();
+
+            Log.d("test-info", "id : " + convertView.findViewById(R.id.txtThreadName));
+
         }
+
+
+
+        viewThingy.txtThreadName = (TextView) convertView.findViewById(R.id.txtThreadName);
+        viewThingy.imgDelete = (ImageView) convertView.findViewById(R.id.imgDelete);
+
+        viewThingy.txtThreadName.setText(thread.title);
+
+        if(thread.user_created == true){
+            viewThingy.imgDelete.setVisibility(View.VISIBLE);
+        }
+
+
 
         return convertView;
     }

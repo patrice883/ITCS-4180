@@ -31,7 +31,7 @@ public class MessageThreads extends AppCompatActivity {
 
     String API_GET_THREAD = "http://ec2-54-164-74-55.compute-1.amazonaws.com/api/thread";
     String API_ADDTHREAD = "http://ec2-54-164-74-55.compute-1.amazonaws.com/api/thread/add";
-    String API_DELETETHREAD = "http://ec2-54-164-74-55.compute-1.amazonaws.com/api/thread/delete/1";
+    String API_DELETETHREAD = "http://ec2-54-164-74-55.compute-1.amazonaws.com/api/thread/delete/";
 
     UserToken token = null;
     ManyThreads threads = null;
@@ -40,21 +40,63 @@ public class MessageThreads extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_threads);
+        setTitle("Message Threads");
 
         if(getIntent() != null) {
             token = (UserToken) getIntent().getExtras().get(MainActivity.TOKEN_KEY);
-
             user = (TextView) findViewById(R.id.txtUser);
             user.setText(token.user_fname + " " + token.user_lname);
 
             getThreads();
-
         }
         else{
             printToast("Error. Returning to Login");
             finish();
         }
+    }
 
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Delete Button
+    ///////////////////////////////////////////////////////////////////////////
+
+    public void deleteClick(View view){
+        Log.d("test-delete", "Delete Thread Button was Clicked");
+        View parentView = (View) view.getParent();
+        String x = "" + ((TextView) parentView.findViewById(R.id.txtThreadName)).getText();
+        Log.d("test-delete", "Delete Title = " + x);
+
+        Request request = new Request.Builder()
+                .url(API_DELETETHREAD+""+((TextView)parentView.findViewById(R.id.txtThreadID)).getText())
+                .header("Authorization", "BEARER " + token.token)
+                .build();
+
+        Log.d("test-delete", "link = " + request.toString());
+        Log.d("test-delete", "link = " + request);
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                printToast("Failure to Connect to Server");
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+                Gson gson = new Gson();
+
+                if(response.isSuccessful()){
+                    Log.d("test-msgs", "Delete was Successfull YAYY");
+                    getThreads();
+                    generateListViewV2();
+                }
+                else{
+                    SignUp.Message msg = gson.fromJson(response.body().string(), SignUp.Message.class);
+                    printToast(msg.message);
+                }
+            }
+
+
+        });
 
     }
 
@@ -68,9 +110,9 @@ public class MessageThreads extends AppCompatActivity {
         token = null;
 
         // Go back to Login
-        Intent intent = new Intent(MessageThreads.this, MainActivity.class);
-        intent.putExtra(MainActivity.TOKEN_KEY, token);
-        startActivity(intent);
+//        Intent intent = new Intent(MessageThreads.this, MainActivity.class);
+//        intent.putExtra(MainActivity.TOKEN_KEY, token);
+//        startActivity(intent);
         finish();
     }
 
@@ -81,22 +123,25 @@ public class MessageThreads extends AppCompatActivity {
         Log.d("test-msgs", "Add New Thread was clicked");
 
         // Get text from edit text
-        String threadName = (findViewById(R.id.editAddNewThread)).toString();
+        String threadName = ((TextView)(findViewById(R.id.editAddNewThread))).getText() + "";
         addThread(threadName);
 
     }
 
     private void addThread(String threadName){
+
+
         RequestBody formBody = new FormBody.Builder()
                 .add("title", threadName)
                 .build();
 
         Request request = new Request.Builder()
-                .url(API_GET_THREAD)
+                .url(API_ADDTHREAD)
                 .header("Authorization", "BEARER " + token.token)
                 .post(formBody)
                 .build();
 
+        Log.d("Test-INFO" , request.toString());
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -106,14 +151,22 @@ public class MessageThreads extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
 
+                Gson gson = new Gson();
+
                 if(response.isSuccessful()){
                     Log.d("test-msgs", "Added a Thread. Time to update listview");
 
-                    // Update ListView
+                    getThreads();
+                    generateListViewV2();
+                }else{
+                    MainActivity.Message msg = gson.fromJson(response.body().string(), MainActivity.Message.class);
+                    printToast(msg.message);
                 }
 
             }
+
         });
+        ((TextView)(findViewById(R.id.editAddNewThread))).setText("");
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -143,6 +196,13 @@ public class MessageThreads extends AppCompatActivity {
                     //finish();
 
                     threads = gson.fromJson(response.body().string(), ManyThreads.class);
+
+                    for(int i = 0; i < threads.threads.size(); i++){
+                        if(token.user_id == Integer.parseInt(threads.threads.get(i).user_id)){
+                            threads.threads.get(i).user_created = true;
+                        }
+                    }
+
                     generateListViewV2();
                 }
                 else{
@@ -161,58 +221,73 @@ public class MessageThreads extends AppCompatActivity {
     ///////////////////////////////////////////////////////////////////////////
     private void generateListViewV2(){
 
-        Log.d("test-generatingListView", threads.threads.toString());
-        final ListView listView = (ListView)findViewById(R.id.listView);
-        final ThreadsAdapter adapter = new ThreadsAdapter(this, R.layout.thread_layout, threads.threads);
+        user.post(new Runnable() {
+            @Override
+            public void run() {
+                Log.d("test-generatingListView", threads.threads.toString());
+                ListView listView = (ListView)findViewById(R.id.listView);
+                ThreadAdapter adapter = new ThreadAdapter(MessageThreads.this, R.layout.thread_layout, threads.threads);
 
 
-        /**
-         * @ISSUE:
-         * The threads displayed are starting to repeat.
-         * The thread arraylist getting sent in is correct... but for some reason,
-         * it's taking time and the first one's sent in are just repeating
-         * When clicking a thread, the correct title is shown in the Log, even though
-         * the wrong title is being displayed
-         */
+                /**
+                 * @ISSUE:
+                 * The threads displayed are starting to repeat.
+                 * The thread arraylist getting sent in is correct... but for some reason,
+                 * it's taking time and the first one's sent in are just repeating
+                 * When clicking a thread, the correct title is shown in the Log, even though
+                 * the wrong title is being displayed
+                 */
 
-        listView.setAdapter(adapter);
 
-        listView.setOnItemClickListener(
-                new AdapterView.OnItemClickListener(){
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Log.d("test-msgs", String.valueOf(parent.getItemAtPosition(position)) + " was clicked");
+                listView.setAdapter(adapter);
 
-                    }
-                }
-        );
+                listView.setOnItemClickListener(
+                        new AdapterView.OnItemClickListener(){
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Log.d("test-msgs", String.valueOf(parent.getItemAtPosition(position)) + " was clicked");
 
+                                AThread athread = (AThread) parent.getItemAtPosition(position);
+
+                                Intent intent = new Intent(MessageThreads.this, Chatroom.class);
+                                intent.putExtra("Thread", athread);
+                                intent.putExtra(MainActivity.TOKEN_KEY, token);
+                                startActivity(intent);
+
+                            }
+                        }
+                );
+            }
+        });
     }
 
     private void generateListViewV1(){
 
-        String[] t = new String[threads.threads.size()];
 
-        for(int i = 0; i < t.length; i++){
-            t[i] = threads.threads.get(i).title;
-            //Log.d("test", "Converting to names and it is : " + t[i].toString());
-        }
+        user.post(new Runnable() {
+            @Override
+            public void run() {
+                String[] t = new String[threads.threads.size()];
 
+                for(int i = 0; i < t.length; i++){
+                    t[i] = threads.threads.get(i).title;
+                    //Log.d("test", "Converting to names and it is : " + t[i].toString());
+                }
 
-        Log.d("test-msgs", "Generating List View... got array of threads");
+                Log.d("test-msgs", "Generating List View... got array of threads");
 
-        ListAdapter sourceAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, t);
-        ListView listView = (ListView)findViewById(R.id.listView);
-        listView.setAdapter(sourceAdapter);
+                ListAdapter sourceAdapter = new ArrayAdapter<String>(MessageThreads.this, android.R.layout.simple_list_item_1, t);
+                ListView listView = (ListView)findViewById(R.id.listView);
+                listView.setAdapter(sourceAdapter);
 
-        Log.d("test-msgs", "Set up list view)");
+                Log.d("test-msgs", "Set up list view)");
 
-        listView.setOnItemClickListener(
-                new AdapterView.OnItemClickListener(){
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                listView.setOnItemClickListener(
+                        new AdapterView.OnItemClickListener(){
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                        Log.d("test-msgs", String.valueOf(parent.getItemAtPosition(position)) + " was clicked");
+                                Log.d("test-msgs", String.valueOf(parent.getItemAtPosition(position)) + " was clicked");
                         /*
                         String item = String.valueOf(parent.getItemAtPosition(position));
 
@@ -225,9 +300,12 @@ public class MessageThreads extends AppCompatActivity {
                         startActivity(intent);
                         */
 
-                    }
-                }
-        );
+                            }
+                        }
+                );
+            }
+        });
+
 
 
     }
