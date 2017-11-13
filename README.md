@@ -76,4 +76,11 @@ Midterm and Midterm Practice
 ### HTTP and Other Popular Libraries
 Helpful links:  
 https://github.com/square/okhttp/wiki/Recipes  
-https://github.com/google/gson
+https://github.com/google/gson  
+
+## Week 11  
+### Firebase and Data Storage
+Helpful links:  
+https://firebase.google.com/  
+
+
