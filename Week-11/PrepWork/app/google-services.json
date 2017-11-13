@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "255146877399",
+    "firebase_url": "https://learning-firebase-fccc7.firebaseio.com",
+    "project_id": "learning-firebase-fccc7",
+    "storage_bucket": "learning-firebase-fccc7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:255146877399:android:2783d14ef99469a3",
+        "android_client_info": {
+          "package_name": "itcs4180.prepwork"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "255146877399-rde2ilj3jm0k7q1p4fk8us26gae464rr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwMjLerLCxA0IqhcJl7ZZ4JDmXGUqjthY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
