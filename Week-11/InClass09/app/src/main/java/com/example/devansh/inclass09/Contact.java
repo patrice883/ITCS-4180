@@ -11,8 +11,14 @@ import java.io.Serializable;
 @IgnoreExtraProperties
 public class Contact implements Serializable{
 
-    public String name, email, phone, dept;
+    public String name, email, phone, dept, uid;
     public int image;
+    public static final int GIRL1 = 80;
+    public static final int GIRL2 = 192;
+    public static final int GIRL3 = 210;
+    public static final int BOY1 = 890;
+    public static final int BOY2 = 463;
+    public static final int BOY3 = 214;
 
     public Contact(){
 
@@ -31,6 +37,7 @@ public class Contact implements Serializable{
         return "Contact{" +
                 "name='" + name + '\'' +
                 ", dept='" + dept + '\'' +
+                ", image=" + image +'\'' +
                 '}';
     }
 

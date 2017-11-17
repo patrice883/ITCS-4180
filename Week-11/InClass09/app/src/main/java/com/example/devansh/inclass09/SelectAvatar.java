@@ -33,7 +33,32 @@ public class SelectAvatar extends AppCompatActivity implements View.OnClickListe
         Log.d("test", "onClick: " + view.getId());
 
         Intent intent = new Intent();
-        intent.putExtra("image", view.getId());
+
+        switch(view.getId()){
+            case R.id.imgGirl1:
+                intent.putExtra("image", Contact.GIRL1);
+                break;
+            case R.id.imgGirl2:
+                intent.putExtra("image", Contact.GIRL2);
+                break;
+            case R.id.imgGirl3:
+                intent.putExtra("image", Contact.GIRL3);
+                break;
+            case R.id.imgBoy1:
+                intent.putExtra("image", Contact.BOY1);
+                break;
+            case R.id.imgBoy2:
+                intent.putExtra("image", Contact.BOY2);
+                break;
+            case R.id.imgBoy3:
+                intent.putExtra("image", Contact.BOY3);
+                break;
+            default:
+                intent.putExtra("image", 0);
+                break;
+        }
+
+        //intent.putExtra("image", view.getId());
         setResult(RESULT_OK, intent);
 
         finish();

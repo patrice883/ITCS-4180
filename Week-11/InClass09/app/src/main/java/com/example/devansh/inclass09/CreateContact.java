@@ -25,12 +25,11 @@ public class CreateContact extends AppCompatActivity{
 
     static int REQ_CODE = 100;
     static String VALUE_KEY = "image";
-    static int some = R.drawable.select_avatar;
     private ArrayList<Contact> contacts = new ArrayList<>();
     int profPicDraw = R.drawable.select_avatar;
     //private CreateNewContactFragment.OnFragmentInteractionListener mListener;
 
-    private int iconID = R.drawable.select_avatar;
+    //private int iconID = R.drawable.select_avatar;
 
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -160,10 +159,6 @@ public class CreateContact extends AppCompatActivity{
             }
         });
 
-
-
-
-
     }
 
     private void writeNewContact(String userId, Contact c){
@@ -182,39 +177,38 @@ public class CreateContact extends AppCompatActivity{
                 Log.d("test", "A value was received.");
                 Log.d("test", "" + id);
 
+
+                profPicDraw = id;
                 switch (id) {
-                    case R.id.imgGirl1:
+                    case Contact.GIRL1:
                         ((ImageView) findViewById(R.id.imgAvatar)).
                                 setImageDrawable(getResources().getDrawable(R.drawable.avatar_f_1));
-                        some = R.drawable.avatar_f_1;
                         break;
-                    case R.id.imgGirl2:
+                    case Contact.GIRL2:
                         ((ImageView) findViewById(R.id.imgAvatar)).
                                 setImageDrawable(getResources().getDrawable(R.drawable.avatar_f_2));
-                        some = R.drawable.avatar_f_2;
                         break;
-                    case R.id.imgGirl3:
+                    case Contact.GIRL3:
                         ((ImageView) findViewById(R.id.imgAvatar)).
                                 setImageDrawable(getResources().getDrawable(R.drawable.avatar_f_3));
-                        some = R.drawable.avatar_f_3;
                         break;
-                    case R.id.imgBoy1:
+                    case Contact.BOY1:
                         ((ImageView) findViewById(R.id.imgAvatar)).
                                 setImageDrawable(getResources().getDrawable(R.drawable.avatar_m_1));
-                        some = R.drawable.avatar_m_1;
                         break;
-                    case R.id.imgBoy2:
+                    case Contact.BOY2:
                         ((ImageView) findViewById(R.id.imgAvatar)).
                                 setImageDrawable(getResources().getDrawable(R.drawable.avatar_m_2));
-                        some = R.drawable.avatar_m_2;
                         break;
-                    case R.id.imgBoy3:
+                    case Contact.BOY3:
                         ((ImageView) findViewById(R.id.imgAvatar)).
                                 setImageDrawable(getResources().getDrawable(R.drawable.avatar_m_3));
-                        some = R.drawable.avatar_m_3;
                         break;
                     default:
-                        some = R.drawable.select_avatar;
+                        ((ImageView) findViewById(R.id.imgAvatar)).
+                                setImageDrawable(getResources().getDrawable(R.drawable.select_avatar));
+                        break;
+
                 }
 
             } else if (resultCode == RESULT_CANCELED) {

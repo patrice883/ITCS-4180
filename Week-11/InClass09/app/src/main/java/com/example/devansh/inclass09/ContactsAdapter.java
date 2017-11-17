@@ -53,8 +53,31 @@ public class ContactsAdapter extends ArrayAdapter<Contact> {
             viewPoopy.email.setText(contact.email);
             viewPoopy.phone.setText(contact.phone);
             viewPoopy.dept.setText(contact.dept);
-            viewPoopy.profilepic.setImageDrawable(getContext().getResources().getDrawable(contact.image));
+            //viewPoopy.profilepic.setImageDrawable(getContext().getResources().getDrawable(contact.image));
 
+            switch(contact.image){
+                case Contact.BOY1:
+                    viewPoopy.profilepic.setImageDrawable(getContext().getResources().getDrawable(R.drawable.avatar_m_1));
+                    break;
+                case Contact.BOY2:
+                    viewPoopy.profilepic.setImageDrawable(getContext().getResources().getDrawable(R.drawable.avatar_m_2));
+                    break;
+                case Contact.BOY3:
+                    viewPoopy.profilepic.setImageDrawable(getContext().getResources().getDrawable(R.drawable.avatar_m_3));
+                    break;
+                case Contact.GIRL1:
+                    viewPoopy.profilepic.setImageDrawable(getContext().getResources().getDrawable(R.drawable.avatar_f_1));
+                    break;
+                case Contact.GIRL2:
+                    viewPoopy.profilepic.setImageDrawable(getContext().getResources().getDrawable(R.drawable.avatar_f_2));
+                    break;
+                case Contact.GIRL3:
+                    viewPoopy.profilepic.setImageDrawable(getContext().getResources().getDrawable(R.drawable.avatar_f_3));
+                    break;
+                default:
+                    viewPoopy.profilepic.setImageDrawable(getContext().getResources().getDrawable(R.drawable.select_avatar));
+                    break;
+            }
 
 
 

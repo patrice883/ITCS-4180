@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -44,10 +45,6 @@ public class Contacts extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference(user.getUid()).child("Contacts");
 
-
-
-
-
         findViewById(R.id.btnLogOut).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,7 +64,6 @@ public class Contacts extends AppCompatActivity {
                 finish();
             }
         });
-        generateView();
 
         myRef.addChildEventListener(new ChildEventListener() {
             String TAG = "test-ChildListener";
@@ -76,6 +72,7 @@ public class Contacts extends AppCompatActivity {
                 Log.d(TAG, "onChildAdded:" + dataSnapshot.getKey());
 
                 contacts.add(getContact(dataSnapshot));
+                generateView();
             }
 
             // Can we ignore this method, since user cannot edit contact?
@@ -87,6 +84,16 @@ public class Contacts extends AppCompatActivity {
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 Log.d(TAG, "onChildRemoved:" + dataSnapshot.getKey());
+
+                /*
+                String key = dataSnapshot.getKey();
+                int i = contacts.indexOf(dataSnapshot.getValue());
+                Log.d(TAG, "index: " + i);
+                contacts.remove(i);
+                Log.d(TAG, "size: " + contacts.size());
+                */
+
+                generateView();
 
             }
 
@@ -106,8 +113,9 @@ public class Contacts extends AppCompatActivity {
                 c.email = "" + dataSnapshot.child("email").getValue();
                 c.name = "" + dataSnapshot.child("name").getValue();
                 c.phone = "" + dataSnapshot.child("phone").getValue();
-                //c.image = Integer.parseInt("" + dataSnapshot.child("image").getValue()); // uhhhh
-                c.image = R.drawable.avatar_m_2;
+                c.image = Integer.parseInt("" + dataSnapshot.child("image").getValue()); // uhhhh
+                c.uid = "" + dataSnapshot.getKey();
+
                 //Log.d(TAG, "Dept is " + dataSnapshot.child("dept").getValue());
 
                 Log.d(TAG, "getContact: ADDED CONTACT" + c);
@@ -115,31 +123,31 @@ public class Contacts extends AppCompatActivity {
             }
         });
 
+        //generateView(); // ---------------------------------------------------------------------------- moved this
+
     }
 
-
-
-//    public void getContacts(){
-//
-//        //Go to Database and get Contacts .. for now... we just add contacts manually ;u;
-//        Contact x = new Contact("Devansh Desai", "abc@123.com", "123123123", "CIS", R.drawable.avatar_m_2);
-//        contacts.add(x);
-//        contacts.add(x);
-//        contacts.add(x);
-//        contacts.add(x);
-//        contacts.add(x);
-//
-//        generateView();
-//    }
-
     public void generateView(){
-
 
         Log.d("test", "Database Receiver : " + myRef.toString());
 
         ListView listView = (ListView)findViewById(R.id.listViewContacts);
         ContactsAdapter adapter = new ContactsAdapter(Contacts.this, R.layout.contact_item, contacts);
         listView.setAdapter(adapter);
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Log.d("test", "Long item click! " + i);
+
+                String key = contacts.get(i).uid;
+                myRef.child(key).removeValue();
+
+                contacts.remove(i); // hehe. Doing this instead of onChildRemoved() method
+
+                return false;
+            }
+        });
 
     }
 }
