@@ -42,11 +42,10 @@ public class CreateContact extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_contact);
-        setTitle("Contacts");
+        setTitle("Create New Contact");
 
         user = FirebaseAuth.getInstance().getCurrentUser();
-        myRef = database.getReference();
-
+        myRef = database.getReference(user.getUid());
 
 
         /*
@@ -169,7 +168,7 @@ public class CreateContact extends AppCompatActivity{
 
     private void writeNewContact(String userId, Contact c){
         //myRef.child("Users").child(userId).setValue(c);
-        myRef.child("Users").child(userId).push().setValue(c);
+        myRef.child("Contacts").push().setValue(c);
         //myRef.child("Users").child(userId).child("").setValue(c);
     }
 
