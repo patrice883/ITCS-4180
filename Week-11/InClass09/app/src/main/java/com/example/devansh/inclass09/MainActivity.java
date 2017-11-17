@@ -149,6 +149,8 @@ public class MainActivity extends AppCompatActivity {
 
                             Intent intent = new Intent(MainActivity.this, Contacts.class);
                             startActivity(intent);
+
+                            // Reset values
                             ((TextView)findViewById(R.id.editTextEmail)).setText("");
                             ((TextView)findViewById(R.id.editTextPassword)).setText("");
                         }

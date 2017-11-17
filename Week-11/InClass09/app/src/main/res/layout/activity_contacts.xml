@@ -9,11 +9,11 @@
 
     <Button
         android:id="@+id/btnCreateNew"
-        android:layout_width="265dp"
+        android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
-        android:layout_weight="0.05"
+        android:padding="5dp"
         android:text="@string/cnc"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -21,8 +21,11 @@
     <ListView
         android:id="@+id/listViewContacts"
         android:layout_width="368dp"
-        android:layout_height="439dp"
+        android:layout_height="400dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnCreateNew"
         tools:layout_editor_absoluteX="8dp" />
 
@@ -30,11 +33,9 @@
         android:id="@+id/btnLogOut"
         android:layout_width="102dp"
         android:layout_height="50dp"
-        android:layout_marginLeft="0dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="16dp"
         android:text="@string/logout"
-        app:layout_constraintLeft_toRightOf="@+id/btnCreateNew"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

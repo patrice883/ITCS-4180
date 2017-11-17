@@ -45,7 +45,7 @@ public class CreateContact extends AppCompatActivity{
         setTitle("Contacts");
 
         user = FirebaseAuth.getInstance().getCurrentUser();
-        myRef = database.getReference();
+        myRef = database.getReference(user.getUid());
 
 
 
@@ -169,7 +169,8 @@ public class CreateContact extends AppCompatActivity{
 
     private void writeNewContact(String userId, Contact c){
         //myRef.child("Users").child(userId).setValue(c);
-        myRef.child("Users").child(userId).push().setValue(c);
+        //myRef.child("Users").child(userId).push().setValue(c); ---------------*
+        myRef.child("Contacts").push().setValue(c);
         //myRef.child("Users").child(userId).child("").setValue(c);
     }
 
