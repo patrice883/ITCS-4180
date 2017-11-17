@@ -57,7 +57,7 @@ public class MessageAdapter extends ArrayAdapter<AMessage> {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(one);
         calendar.add(calendar.HOUR, -5);
-        calendar.add(calendar.MINUTE, -15);
+        //calendar.add(calendar.MINUTE, -15);
         calendar.add(calendar.SECOND, -15);
 
         Log.d("Test-V2", " --> " + p.format(calendar));
