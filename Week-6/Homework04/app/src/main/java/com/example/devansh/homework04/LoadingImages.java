@@ -1,4 +1,4 @@
-package com.example.devansh.homework04;
+package com.example.pparson.homework04;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -15,7 +15,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * Created by devansh on 10/2/17.
+ * Created by pparson on 9/28/18.
  */
 
 public class LoadingImages extends AsyncTask<String, Void, Void>{
